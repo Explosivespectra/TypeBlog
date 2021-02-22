@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import {Container, CssBaseline} from '@material-ui/core';
+import {grey} from '@material-ui/core/colors';
+import {ThemeProvider, Theme, createMuiTheme} from '@material-ui/core/styles';
+import {BrowserRouter as Router} from "react-router-dom";
+import SiteCore from './components/SiteCore'
 
-function App() {
+const theme = {
+  palette: {
+    background: {
+        default: grey[900],
+        paper: "#e2b714",
+    },
+    primary: {
+        main: "#e2b714",
+        contrastText:"#212121"
+    },
+    text: {
+        primary: "#e2b714",
+        secondary:"#212121"
+    },
+  },
+}
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={createMuiTheme(theme)}>
+      <CssBaseline/>
+      <Router>
+        <SiteCore/>
+      </Router>
+    </ThemeProvider>
   );
 }
 
