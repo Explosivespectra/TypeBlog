@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-type ContentProps = {products: Array<Object>, categories: Array<String>};
+type ContentProps = {products: Array<object>, categories: Array<string>};
 
 const DrawerContent: React.FC<ContentProps> = ({products, categories}) => {
 
