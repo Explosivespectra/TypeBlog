@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Grid, Drawer, Collapse, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden } from "@material-ui/core";
+import { Typography, Grid, Drawer, Collapse, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import {makeStyles, createStyles, Theme} from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-type ContentProps = {products: Array<object>, categories: Array<string>};
+type ContentProps = { products: Array<object>, categories: Array<string> };
 
-const DrawerContent: React.FC<ContentProps> = ({products, categories}) => {
+const DrawerContent: React.FC<ContentProps> = ({ products, categories }) => {
 
-  const [expandedCategories, setCategories] = useState<Array<Boolean>>(categories.map((category) => {return false}));
+  const [expandedCategories, setCategories] = useState<Array<Boolean>>(categories.map((category) => { return false }));
 
   const classes = useStyles();
 
@@ -33,9 +33,9 @@ const DrawerContent: React.FC<ContentProps> = ({products, categories}) => {
     <List>
       {categories.map((category, ind) => {
         return (
-          <ListItem button className={classes.navcontent} onClick={() => {expandedCategories[ind] = !expandedCategories[ind]; setCategories([...expandedCategories])}}>
-            <ListItemText primary={<>{category}</>}/>
-            {expandedCategories[ind] ? <ExpandLess color="inherit"/> : <ExpandMore color="inherit"/>}
+          <ListItem button className={classes.navcontent} onClick={() => { expandedCategories[ind] = !expandedCategories[ind]; setCategories([...expandedCategories]) }}>
+            <ListItemText primary={<>{category}</>} />
+            {expandedCategories[ind] ? <ExpandLess color="inherit" /> : <ExpandMore color="inherit" />}
           </ListItem>
         )
       })}
@@ -43,50 +43,56 @@ const DrawerContent: React.FC<ContentProps> = ({products, categories}) => {
   )
 }
 
-const MenuContent: React.FC<ContentProps> = ({products, categories}) => {
+const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
+
+  const [openDrawer, setDrawer] = useState<boolean>(false);
+
+  return (<nav>
+    <Hidden mdUp>
+      <Drawer
+        open={openDrawer}
+        variant="temporary"
+        onClose={() => { setDrawer(false) }}>
+        <Toolbar />
+        <DrawerContent products={products} categories={categories} />
+      </Drawer>
+    </Hidden>
+    <Hidden mdUp>
+      <Tooltip title="Menu Navigation">
+        <IconButton onClick={() => { setDrawer(true) }}>
+          <MenuIcon color="primary" />
+        </IconButton>
+      </Tooltip>
+    </Hidden>
+    <Hidden smDown>
+      <Drawer
+        variant="permanent">
+        <Toolbar />
+        <DrawerContent products={products} categories={categories} />
+      </Drawer>
+    </Hidden>
+  </nav>)
+}
+
+const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
     <></>
   )
 }
 
-const MenuPage: React.FC<ContentProps> = ({products, categories}) => {
-
-  const [openDrawer, setDrawer] = useState<boolean>(false);
-
+const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
   const classes = useStyles();
 
   return (
     <>
-      <Hidden mdUp>
-        <Drawer
-          open={openDrawer}
-          variant="temporary"
-          onClose={() => {setDrawer(false)}}>
-            <Toolbar/>
-            <DrawerContent products={products} categories={categories}/>
-        </Drawer>
-      </Hidden>
-      <Hidden mdUp>
-          <Tooltip title="Menu Navigation">
-            <IconButton onClick={() => {setDrawer(true)}}>
-              <MenuIcon color="primary"/>
-            </IconButton>
-          </Tooltip>
-      </Hidden>
-      <Grid container justify="center" alignItems="flex-start">
-        <Grid item>
-          <Hidden smDown>
-            <Drawer
-              variant="permanent">
-                <Toolbar/>
-                <DrawerContent products={products} categories={categories}/>
-            </Drawer>
-          </Hidden>
+      <CategoryDrawer products={products} categories={categories} />
+      <Container>
+        <Typography variant="h1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, tempora!</Typography>
+        <Grid container justify="center" alignItems="flex-start">
+          <Grid item>
+          </Grid>
         </Grid>
-        <Grid item>
-          Hello
-        </Grid>
-      </Grid>
+      </Container>
     </>
   );
 }
