@@ -48,7 +48,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
   const [openDrawer, setDrawer] = useState<boolean>(false);
 
   return (<nav>
-    <Hidden mdUp>
+    <Hidden xlUp>
       <Drawer
         open={openDrawer}
         variant="temporary"
@@ -57,16 +57,16 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
         <DrawerContent products={products} categories={categories} />
       </Drawer>
     </Hidden>
-    <Hidden mdUp>
+    <Hidden xlUp>
       <Tooltip title="Menu Navigation">
         <IconButton onClick={() => { setDrawer(true) }}>
           <MenuIcon color="primary" />
         </IconButton>
       </Tooltip>
     </Hidden>
-    <Hidden smDown>
+    <Hidden lgDown>
       <Drawer
-        variant="permanent">
+        variant="persistent">
         <Toolbar />
         <DrawerContent products={products} categories={categories} />
       </Drawer>
