@@ -16,16 +16,16 @@ const genshinFont = {
 const theme = {
   palette: {
     background: {
-        default: grey[900],
-        paper: "#e2b714",
+        default: "#f0f1f5",
+        paper: "#ffffff",
     },
     primary: {
-        main: "#e2b714",
-        contrastText:"#212121"
+        main: "#2d2f33",
+        contrastText:"#ffffff"
     },
     text: {
-        primary: "#e2b714",
-        secondary:"#212121"
+        primary: "#2d2f33",
+        secondary:"#2d2f33"
     },
   },
   typography: {
