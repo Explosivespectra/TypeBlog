@@ -28,10 +28,16 @@ const theme = {
         secondary:"#212121"
     },
   },
+  typography: {
+    fontFamily: "Helvetica, Roboto, Arial, sans-serif",
+  },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         '@font-face': genshinFont,
+        html: {
+          overflowY: "scroll",
+        }, 
       },
     },
   }
