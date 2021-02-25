@@ -1,10 +1,22 @@
 {
   "products": [
     {
-      "cost": 0.01
+      "name": "",
+      "category": "entrees",
+      "cost": 0.01,
+      "description": ""
     },
     {
-      "cost": 1.00
+      "name": "",
+      "category": "beverages",
+      "cost": 1.00,
+      "description": ""
     }
+  ],
+
+  "categories": [
+    "entrees",
+    "beverages",
+    "specialties"
   ]
 }

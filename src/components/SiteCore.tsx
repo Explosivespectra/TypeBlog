@@ -8,6 +8,29 @@ import {OrderPage} from "./pageComponents/OrderPage";
 import {AboutPage} from "./pageComponents/AboutPage";
 import {ContactPage} from "./pageComponents/ContactPage";
 
+let productData = {
+  products: [
+    {
+      name: "",
+      category: "entrees",
+      cost: 0.01,
+      description: ""
+    },
+    {
+      name: "",
+      category: "beverages",
+      cost: 1.00,
+      "description": ""
+    }
+  ],
+
+  categories: [
+    "entrees",
+    "beverages",
+    "specialties"
+  ]
+}
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appbar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -48,11 +71,14 @@ const SiteCore: React.FC = () => {
                       keepMounted 
                       open={Boolean(menuLoc)} 
                       anchorEl={menuLoc} 
-                      placement='bottom'>    
-                        <Paper>           
-                          <MenuItem>
-                            <Typography className={classes.navtext} variant="subtitle1">Hello There!</Typography>
-                          </MenuItem>
+                      placement='bottom'>
+                        <Paper>
+                          {productData.categories.map((category) => {
+                            return (
+                              <MenuItem>
+                                <Typography className={classes.navtext} variant="subtitle1">{category}</Typography>
+                              </MenuItem>
+                          )})}
                         </Paper>
                     </Popper>
                   </Button>
@@ -79,7 +105,7 @@ const SiteCore: React.FC = () => {
           <Container>
           <Switch>
             <Route exact path="/" component={HomePage}/>
-            <Route path="/menu" component={MenuPage}/>
+            <Route path="/menu" render={() => <MenuPage products={productData.products} categories={productData.categories}/>}/>
             <Route path="/online-order" component={OrderPage}/>
             <Route path="/about-us" component={AboutPage}/>
              <Route path="/contact-us" component={ContactPage}/>
