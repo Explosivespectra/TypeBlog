@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textTransform: "uppercase",
     style: theme.typography.button,
     color: theme.palette.text.secondary,
-  }
+  },
 }));
 
 const SiteCore: React.FC = () => {
