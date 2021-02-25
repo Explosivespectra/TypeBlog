@@ -53,7 +53,7 @@ const SiteCore: React.FC = () => {
 
     return (
         <>
-          <AppBar position="relative" className={classes.appbar}>
+          <AppBar position="fixed" className={classes.appbar}>
             <Toolbar>
               <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid item>
