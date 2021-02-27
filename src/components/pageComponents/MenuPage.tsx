@@ -66,7 +66,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
     </Hidden>
     <Hidden lgDown>
       <Drawer
-        variant="persistent">
+        variant="persistent" open={true}>
         <Toolbar />
         <DrawerContent products={products} categories={categories} />
       </Drawer>
@@ -76,7 +76,17 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
 
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
-    <></>
+  <>
+    {categories.map( (category) => { 
+      return (
+      <Grid item container>
+        <Grid item>
+          <Typography variant="h2">{category}</Typography>
+        </Grid>
+      </Grid>
+      )
+    })}
+  </>
   )
 }
 
@@ -89,8 +99,7 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
       <Container>
         <Typography variant="h1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, tempora!</Typography>
         <Grid container justify="center" alignItems="flex-start">
-          <Grid item>
-          </Grid>
+          <MenuContent products={products} categories={categories}/>
         </Grid>
       </Container>
     </>
