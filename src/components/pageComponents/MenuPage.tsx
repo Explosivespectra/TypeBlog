@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Typography, Grid, Drawer, Card, CardActionArea, CardMedia, CardContent, Button, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
+import { Typography, Grid, Drawer, Card, CardActionArea, CardMedia, CardContent, Button, SvgIcon, SvgIconProps, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -11,6 +12,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   menuNav: {
     background:"#181729",
+    "&::before": {
+      position: "absolute",
+      top: "0px",
+      left: "27.25px",
+      display: "block",
+      content: "''",
+      width: "1.5px",
+      height: "100%",
+      background: "#ddbb61"
+    },
   },
   menuCard: {
     borderRadius: "8px",
@@ -21,8 +32,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
+const GenshinMenuPrimaryIcon:React.FC = (props: SvgIconProps) => {
+  return (
+    <SvgIcon {...props}>
+      <path />
+    </SvgIcon>
+  )
+}
+
 type ContentProps = { products: Array<object>, categories: Array<string> };
 type DrawerProps = { chosenCategory: number, categories: Array<string>, sendChosen: CallableFunction};
+
 
 const MenuCard: React.FC = () => {
 
@@ -49,6 +69,7 @@ const DrawerContent: React.FC<DrawerProps> = ({ chosenCategory, categories, send
       {categories.map((category, ind) => {
         return (
           <ListItem key={category} button onClick={() => { sendChosen(ind)}}>
+            <ListItemIcon classes={{root: classes.navcontent}}><FiberManualRecordIcon/></ListItemIcon>
             <ListItemText primary={<Typography variant="subtitle1" className={classes.navcontent}>{category}</Typography>}/>
           </ListItem>
         )
@@ -66,7 +87,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
   return (<nav>
     <Hidden xlUp>
       <Drawer
-        classes={{ paper: classes.menuNav}}
+        classes={{ paper: classes.menuNav }}
         open={openDrawer}
         variant="temporary"
         onClose={() => { setDrawer(false) }}>
@@ -83,7 +104,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
     </Hidden>
     <Hidden lgDown>
       <Drawer
-        classes={{ paper: classes.menuNav}}
+        classes={{ paper: classes.menuNav }}
         open={true}
         variant="persistent">
         <Toolbar />
