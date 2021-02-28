@@ -82,15 +82,13 @@ const SiteCore: React.FC = () => {
         </Toolbar>
       </AppBar>
       <Toolbar />
-      <Container>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/menu" render={() => <MenuPage products={productData.products} categories={productData.categories} />} />
-          <Route path="/online-order" component={OrderPage} />
-          <Route path="/about-us" component={AboutPage} />
-          <Route path="/contact-us" component={ContactPage} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/menu" render={() => <MenuPage products={productData.products} categories={productData.categories} />} />
+        <Route path="/online-order" component={OrderPage} />
+        <Route path="/about-us" component={AboutPage} />
+        <Route path="/contact-us" component={ContactPage} />
+      </Switch>
     </>
   );
 }
