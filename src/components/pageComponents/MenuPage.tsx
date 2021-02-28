@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Grid, Drawer, Collapse, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
+import { Typography, Grid, Drawer, Card, Button, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   desktopNav: {
 
-  }
+  },
+
+  menuCards: {
+
+  },
+
 }));
 
 type ContentProps = { products: Array<object>, categories: Array<string> };
@@ -100,6 +105,7 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
         <Typography variant="h1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, tempora!</Typography>
         <Grid container justify="center" alignItems="flex-start">
           <MenuContent products={products} categories={categories}/>
+          <Button>I'm a button</Button>
         </Grid>
       </Container>
     </>

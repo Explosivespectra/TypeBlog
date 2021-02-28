@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   appbar: {
     zIndex: theme.zIndex.drawer + 1,
   },
+  title: {
+    marginRight: theme.spacing(4),
+    fontFamily: "Genshin",
+    position: "relative",
+  },
   appbarlink: {
     paddingLeft: "1.5rem",
     paddingRight: "1.5rem",
@@ -50,6 +55,7 @@ const SiteCore: React.FC = () => {
         <Toolbar>
           <Container maxWidth={false} style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0 }}>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "stretch", height: "100%" }}>
+              <Typography variant={"h3"} color="inherit" className={classes.title}>FoT</Typography>
               {simpleNavButtonGridItem("/", "Home")}
               <ButtonBase className={classes.appbarlink} color="inherit" component={Link} to="/menu"
                 onMouseOver={(event: React.MouseEvent<HTMLElement, MouseEvent>) => { if (menuLoc !== event.currentTarget) { setMenu(event.currentTarget) } }}
