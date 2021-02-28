@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Grid, Drawer, Collapse, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
+import { Typography, Grid, Drawer, Card, Button, IconButton, List, ListItem, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   desktopNav: {
 
-  }
+  },
+
+  menuCards: {
+
+  },
+
 }));
 
 type ContentProps = { products: Array<object>, categories: Array<string> };
@@ -48,7 +53,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
   const [openDrawer, setDrawer] = useState<boolean>(false);
 
   return (<nav>
-    <Hidden mdUp>
+    <Hidden xlUp>
       <Drawer
         open={openDrawer}
         variant="temporary"
@@ -57,16 +62,16 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
         <DrawerContent products={products} categories={categories} />
       </Drawer>
     </Hidden>
-    <Hidden mdUp>
+    <Hidden xlUp>
       <Tooltip title="Menu Navigation">
         <IconButton onClick={() => { setDrawer(true) }}>
           <MenuIcon color="primary" />
         </IconButton>
       </Tooltip>
     </Hidden>
-    <Hidden smDown>
+    <Hidden lgDown>
       <Drawer
-        variant="permanent">
+        variant="persistent" open={true}>
         <Toolbar />
         <DrawerContent products={products} categories={categories} />
       </Drawer>
@@ -76,7 +81,17 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
 
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
-    <></>
+  <>
+    {categories.map( (category) => { 
+      return (
+      <Grid item container>
+        <Grid item>
+          <Typography variant="h2">{category}</Typography>
+        </Grid>
+      </Grid>
+      )
+    })}
+  </>
   )
 }
 
@@ -89,8 +104,8 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
       <Container>
         <Typography variant="h1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, tempora!</Typography>
         <Grid container justify="center" alignItems="flex-start">
-          <Grid item>
-          </Grid>
+          <MenuContent products={products} categories={categories}/>
+          <Button>I'm a button</Button>
         </Grid>
       </Container>
     </>

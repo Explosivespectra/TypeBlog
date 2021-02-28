@@ -40,6 +40,15 @@ const theme = {
         }, 
       },
     },
+    MuiButton: {
+      root: {
+        fontFamily: "Genshin",
+        backgroundColor: "#ebe1d4",
+        color:"#495366",
+        borderRadius: "100px 100px 100px 100px",
+        textTransform: "none",
+      }
+    }
   }
 }
 
