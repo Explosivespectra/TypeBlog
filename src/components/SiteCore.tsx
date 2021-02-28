@@ -9,8 +9,6 @@ import { AboutPage } from "./pageComponents/AboutPage";
 import { ContactPage } from "./pageComponents/ContactPage";
 import productData from "../mockData/products.json";
 
-import { width } from "@material-ui/system";
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appbar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -35,6 +33,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     style: theme.typography.button,
     color: theme.palette.primary.contrastText,
   },
+  footerSection: {
+    color: "#999999",
+    backgroundColor: "#131313",
+    paddingTop: "0.5rem",
+    // "& a": {
+    //   backgroundColor: "red"
+    // }
+  },
+  footerCopySection: {
+    color: "#676767",
+    backgroundColor: "#080808",
+    padding: "0.5rem 0",
+    marginTop: "2rem",
+  }
 }));
 
 const SiteCore: React.FC = () => {
@@ -95,6 +107,37 @@ const SiteCore: React.FC = () => {
         <Route path="/about-us" component={AboutPage} />
         <Route path="/contact-us" component={ContactPage} />
       </Switch>
+      {/* TODO: change HR color */}
+      <section className={classes.footerSection}>
+        <Container>
+          <p>Social Links</p>
+          <hr />
+          <Grid container>
+            <Grid item>
+              {/* TODO: style these link sections... Child selector not working */}
+              <Typography variant="h5">Link Group</Typography>
+              <a href="#"><p>Link to somn</p></a>
+              <a href="#"><p>Link to somn else</p></a>
+              <a href="#"><p>Link to somwea</p></a>
+              <a href="#"><p>Link to somn</p></a>
+              <a href="#"><p>Link to som doo</p></a>
+            </Grid>
+            <Grid item>
+
+            </Grid>
+            <Grid item>
+
+            </Grid>
+          </Grid>
+        </Container>
+        <section className={classes.footerCopySection}>
+          <Container>
+            <p>
+              Privacy Policy, Terms and Conditions, other legal docs nobody reads, Copyrights, and other credits
+            </p>
+          </Container>
+        </section>
+      </section>
     </>
   );
 }
