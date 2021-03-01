@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     "&::before": {
       position: "absolute",
       top: "0px",
-      left: "27.25px",
+      left: "27.5px",
       display: "block",
       content: "''",
-      width: "1.5px",
+      width: "1px",
       height: "100%",
       background: "#ddbb61"
     },
