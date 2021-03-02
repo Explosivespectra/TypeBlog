@@ -83,7 +83,7 @@ const MenuCard: React.FC = () => {
           <img src={zhonglisoup} className={classes.cardmediasrc}></img>
         </CardMedia>
         <CardContent className={classes.cardcontent}>
-          <Typography variant="subtitle1" className={classes.cardtext}>Slow-Cooked Bamboo Shoot Soup</Typography>
+          <Typography variant="subtitle1" className={classes.cardtext}>Adeptus Temptation</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
