@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   cardtext: {
     color: "#181729",
     fontFamily: "Genshin",
-    fontSize: ".4vw",
+    fontSize: ".7rem",
     lineHeight: "1",
   },
   cardmediaback: {
@@ -83,7 +83,7 @@ const MenuCard: React.FC = () => {
           <img src={zhonglisoup} className={classes.cardmediasrc}></img>
         </CardMedia>
         <CardContent className={classes.cardcontent}>
-          <Typography variant="subtitle1" className={classes.cardtext}>Adeptus Temptation</Typography>
+          <Typography variant="subtitle1" className={classes.cardtext}>Slow-Cooked Bamboo Shoot Soup</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
