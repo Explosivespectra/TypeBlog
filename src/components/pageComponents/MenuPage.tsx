@@ -3,11 +3,12 @@ import { Typography, Grid, Drawer, Card, CardActionArea, CardMedia, CardContent,
 import MenuIcon from "@material-ui/icons/Menu";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import zhonglisoup from '../../mockData/productImages/temp-zhonglisoup.png';
+import zhonglisoup from '../../mockData/productImages/temp-adeptustemptation.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
     color: "#ddbb61",
     fontFamily: "Genshin",
+    fontSize: ".5vw",
   },
 
   menuNav: {
@@ -28,12 +29,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     borderRadius: "8px",
   },
   cardcontent: {
+    display: "flex",
+    justifyContent: "center",
     textAlign: "center",
-    padding: "4px 2px 2px 4px",
+    alignItems: "center",
+    padding: "2px 2px 2px 2px",
+    width: "150px",
+    height: "30px",
+    overflow: "hidden",
   },
   cardtext: {
     color: "#181729",
     fontFamily: "Genshin",
+    fontSize: ".4vw",
+    lineHeight: "1",
   },
   cardmediaback: {
     display: "flex",
@@ -74,7 +83,7 @@ const MenuCard: React.FC = () => {
           <img src={zhonglisoup} className={classes.cardmediasrc}></img>
         </CardMedia>
         <CardContent className={classes.cardcontent}>
-          <Typography variant="subtitle1" className={classes.cardtext}>Hello World</Typography>
+          <Typography variant="subtitle1" className={classes.cardtext}>Adeptus Temptation</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
