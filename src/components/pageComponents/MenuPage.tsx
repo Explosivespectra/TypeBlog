@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Typography, Grid, Drawer, Card, CardActionArea, CardMedia, CardContent, Button, SvgIcon, SvgIconProps, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Tooltip, Hidden, Container } from "@material-ui/core";
+import { Typography, Grid, Drawer, Card, CardActionArea, CardMedia, CardContent, Button, SvgIcon, SvgIconProps, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Tooltip, Hidden, Collapse, Container } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
+import zhonglisoup from '../../mockData/productImages/temp-zhonglisoup.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
     color: "#ddbb61",
@@ -24,12 +24,29 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   menuCard: {
+    boxShadow: theme.shadows[6],
     borderRadius: "8px",
   },
   cardcontent: {
+    textAlign: "center",
+    padding: "4px 2px 2px 4px",
+  },
+  cardtext: {
     color: "#181729",
     fontFamily: "Genshin",
-  }
+  },
+  cardmediaback: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "150px",
+    height: "135px",
+    background: "#ddbb61",
+  },
+  cardmediasrc: {
+    maxWidth: "95%",
+    height: "auto",
+  },
 }));
 
 const GenshinMenuPrimaryIcon:React.FC = (props: SvgIconProps) => {
@@ -51,9 +68,13 @@ const MenuCard: React.FC = () => {
   return (
     <Card className={classes.menuCard}>
       <CardActionArea onClick={() => {}}>
-        <CardMedia/>
-        <CardContent>
-          <Typography variant="subtitle1" className={classes.cardcontent}>Hello World</Typography>
+        <CardMedia
+          className={classes.cardmediaback}
+        >
+          <img src={zhonglisoup} className={classes.cardmediasrc}></img>
+        </CardMedia>
+        <CardContent className={classes.cardcontent}>
+          <Typography variant="subtitle1" className={classes.cardtext}>Hello World</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
