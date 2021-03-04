@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
     color: "#ddbb61",
     fontFamily: "Genshin",
-    fontSize: ".8rem",
+    fontSize: "1.5rem",
   },
 
   menuNav: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column',
     alignItems: 'stretch',
     flexGrow: 1,
-    padding: "max(.2rem, 5%) .1rem max(.2rem, 5%) .1rem",
+    padding: "max(.2rem , 5%) .1rem max(.2rem, 5%) .1rem",
     width: "100%",
     overflow: "hidden",
   },
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     color: "#181729",
     fontFamily: "Genshin",
     fontSize: "1.5rem",
-    lineHeight: ".8rem",
+    lineHeight: "1.5rem",
   },
   cardmediaback: {
     display: "flex",
@@ -186,7 +186,7 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
     <>
       <CategoryDrawer products={products} categories={categories} />
       <Container>
-        <Grid container>
+        <Grid container justify="center">
           <MenuContent products={products} categories={categories}/>
           <SelectedItem/>
         </Grid>
