@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     color: "#181729",
     fontFamily: "Genshin",
     fontSize: "1.5rem",
-    lineHeight: ".8rem",
+    lineHeight: "1.5rem",
   },
   cardmediaback: {
     display: "flex",
