@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   content: {
     [theme.breakpoints.up('lg')]: {
-      marginLeft: "250px",
+      paddingLeft: "250px",
     }
   },
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   menuNav: {
     width: "250px",
-    background:"#181729",
+    background: "#181729",
     "&::before": {
       position: "absolute",
       top: "0px",
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const GenshinMenuPrimaryIcon:React.FC = (props: SvgIconProps) => {
+const GenshinMenuPrimaryIcon: React.FC = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
       <path />
@@ -80,7 +80,7 @@ const GenshinMenuPrimaryIcon:React.FC = (props: SvgIconProps) => {
 }
 
 type ContentProps = { products: Array<object>, categories: Array<string> };
-type DrawerProps = { chosenCategory: number, categories: Array<string>, sendChosen: CallableFunction};
+type DrawerProps = { chosenCategory: number, categories: Array<string>, sendChosen: CallableFunction };
 
 
 const MenuCard: React.FC = () => {
@@ -89,7 +89,7 @@ const MenuCard: React.FC = () => {
 
   return (
     <Card className={classes.menuCard}>
-      <CardActionArea onClick={() => {}}>
+      <CardActionArea onClick={() => { }}>
         <CardMedia
           className={classes.cardmediaback}
         >
@@ -127,9 +127,9 @@ const DrawerContent: React.FC<DrawerProps> = ({ chosenCategory, categories, send
     <List>
       {categories.map((category, ind) => {
         return (
-          <ListItem key={category} button onClick={() => { sendChosen(ind)}}>
-            <ListItemIcon classes={{root: classes.navcontent}}><FiberManualRecordIcon/></ListItemIcon>
-            <ListItemText primary={<Typography variant="subtitle1" className={classes.navcontent}>{category}</Typography>}/>
+          <ListItem key={category} button onClick={() => { sendChosen(ind) }}>
+            <ListItemIcon classes={{ root: classes.navcontent }}><FiberManualRecordIcon /></ListItemIcon>
+            <ListItemText primary={<Typography variant="subtitle1" className={classes.navcontent}>{category}</Typography>} />
           </ListItem>
         )
       })}
@@ -151,7 +151,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
         variant="temporary"
         onClose={() => { setDrawer(false) }}>
         <Toolbar />
-        <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => {setCategory(ind)}} />
+        <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => { setCategory(ind) }} />
       </Drawer>
     </Hidden>
     <Hidden lgUp>
@@ -167,23 +167,25 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
         open={true}
         variant="permanent">
         <Toolbar />
-        <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => {setCategory(ind)}} />
+        <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => { setCategory(ind) }} />
       </Drawer>
     </Hidden>
   </>)
 }
 
+const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
-  <Grid item container spacing={2} style={{width: "100%"}}>
-    {categories.map( (category) => { 
-      return (
-        <Grid item xs={6} md={4} lg={2}>
-          <MenuCard/>
-        </Grid>
-      )
-    })}
-  </Grid>
+    <Grid item container spacing={2} style={{ width: "100%" }}>
+      {list.map((category) => {
+        return (
+          <Grid item xs={6} md={4} lg={2}>
+            <MenuCard />
+          </Grid>
+        )
+      })}
+    </Grid>
   )
 }
 
@@ -195,8 +197,8 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
       <CategoryDrawer products={products} categories={categories} />
       <Container className={classes.content}>
         <Grid container justify="center">
-          <MenuContent products={products} categories={categories}/>
-          <SelectedItem/>
+          <MenuContent products={products} categories={categories} />
+          <SelectedItem />
         </Grid>
       </Container>
     </>
