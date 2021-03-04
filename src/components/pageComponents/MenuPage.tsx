@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
     color: "#ddbb61",
     fontFamily: "Genshin",
-    fontSize: ".8rem",
+    fontSize: "1.5rem",
   },
 
   menuNav: {
