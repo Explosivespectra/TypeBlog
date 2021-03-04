@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   navcontent: {
     color: "#ddbb61",
     fontFamily: "Genshin",
-    fontSize: ".5vw",
+    fontSize: ".8rem",
   },
 
   menuNav: {
@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   menuCard: {
+    display: "flex",
+    flexDirection: "column",
     boxShadow: theme.shadows[6],
     borderRadius: "8px",
     width: "100%",
@@ -34,24 +36,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     justifyContent: "center",
     textAlign: "center",
-    alignItems: "center",
-    padding: "2px 2px 2px 2px",
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    flexGrow: 1,
+    padding: "max(.2rem, 5%) .1rem max(.2rem, 5%) .1rem",
     width: "100%",
-    height: "18.2%",
     overflow: "hidden",
   },
   cardtext: {
     color: "#181729",
     fontFamily: "Genshin",
-    fontSize: ".7rem",
-    lineHeight: "1",
+    fontSize: "1.5rem",
+    lineHeight: ".8rem",
   },
   cardmediaback: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: "81.8%",
+    flexGrow: 4.4945,
     background: "#ddbb61",
   },
   cardmediasrc: {
@@ -132,7 +135,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
 
   const [openDrawer, setDrawer] = useState<boolean>(false);
   const [currentCategory, setCategory] = useState<number>(0);
-  return (<nav>
+  return (<>
     <Hidden xlUp>
       <Drawer
         classes={{ paper: classes.menuNav }}
@@ -154,12 +157,12 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
       <Drawer
         classes={{ paper: classes.menuNav }}
         open={true}
-        variant="persistent">
+        variant="permanent">
         <Toolbar />
         <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => {setCategory(ind)}} />
       </Drawer>
     </Hidden>
-  </nav>)
+  </>)
 }
 
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
@@ -167,7 +170,7 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   <Grid item container spacing={2} style={{width: "100%"}}>
     {categories.map( (category) => { 
       return (
-        <Grid item xs={3} lg={2}>
+        <Grid item xs={6} md={4} lg={2}>
           <MenuCard/>
         </Grid>
       )
