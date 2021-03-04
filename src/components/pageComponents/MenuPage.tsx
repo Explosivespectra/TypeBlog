@@ -5,6 +5,13 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import zhonglisoup from '../../mockData/productImages/temp-adeptustemptation.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
+
+  content: {
+    [theme.breakpoints.up('lg')]: {
+      marginLeft: "250px",
+    }
+  },
+
   navcontent: {
     color: "#ddbb61",
     fontFamily: "Genshin",
@@ -12,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 
   menuNav: {
+    width: "250px",
     background:"#181729",
     "&::before": {
       position: "absolute",
@@ -136,7 +144,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
   const [openDrawer, setDrawer] = useState<boolean>(false);
   const [currentCategory, setCategory] = useState<number>(0);
   return (<>
-    <Hidden xlUp>
+    <Hidden lgUp>
       <Drawer
         classes={{ paper: classes.menuNav }}
         open={openDrawer}
@@ -146,14 +154,14 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
         <DrawerContent chosenCategory={currentCategory} categories={categories} sendChosen={(ind: number) => {setCategory(ind)}} />
       </Drawer>
     </Hidden>
-    <Hidden xlUp>
+    <Hidden lgUp>
       <Tooltip title="Menu Navigation">
         <IconButton onClick={() => { setDrawer(true) }}>
           <MenuIcon color="primary" />
         </IconButton>
       </Tooltip>
     </Hidden>
-    <Hidden lgDown>
+    <Hidden mdDown>
       <Drawer
         classes={{ paper: classes.menuNav }}
         open={true}
@@ -185,7 +193,7 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
   return (
     <>
       <CategoryDrawer products={products} categories={categories} />
-      <Container>
+      <Container className={classes.content}>
         <Grid container justify="center">
           <MenuContent products={products} categories={categories}/>
           <SelectedItem/>
