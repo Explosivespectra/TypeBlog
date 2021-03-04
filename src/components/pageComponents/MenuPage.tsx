@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   cardtext: {
     color: "#181729",
     fontFamily: "Genshin",
-    fontSize: ".8rem",
+    fontSize: "1.5rem",
     lineHeight: ".8rem",
   },
   cardmediaback: {
@@ -170,7 +170,7 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   <Grid item container spacing={2} style={{width: "100%"}}>
     {categories.map( (category) => { 
       return (
-        <Grid item xs={3} lg={2}>
+        <Grid item xs={6} md={4} lg={2}>
           <MenuCard/>
         </Grid>
       )
