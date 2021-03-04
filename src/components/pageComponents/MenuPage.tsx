@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   menuCard: {
     boxShadow: theme.shadows[6],
     borderRadius: "8px",
+    width: "100%",
+    height: "auto",
   },
   cardcontent: {
     display: "flex",
@@ -34,8 +36,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textAlign: "center",
     alignItems: "center",
     padding: "2px 2px 2px 2px",
-    width: "150px",
-    height: "30px",
+    width: "100%",
+    height: "18.2%",
     overflow: "hidden",
   },
   cardtext: {
@@ -48,8 +50,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "150px",
-    height: "135px",
+    width: "100%",
+    height: "81.8%",
     background: "#ddbb61",
   },
   cardmediasrc: {
@@ -87,6 +89,22 @@ const MenuCard: React.FC = () => {
         </CardContent>
       </CardActionArea>
     </Card>
+  )
+}
+
+const SelectedItem: React.FC = () => {
+  return (
+    <>
+      <Hidden>
+        <>
+
+        </>
+      </Hidden>
+      <Hidden>
+        <>
+        </>
+      </Hidden>
+    </>
   )
 }
 
@@ -146,17 +164,15 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
 
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
-  <>
+  <Grid item container spacing={2} style={{width: "100%"}}>
     {categories.map( (category) => { 
       return (
-      <Grid item container>
-        <Grid item>
-          <Typography variant="h2">{category}</Typography>
+        <Grid item xs={3} lg={2}>
+          <MenuCard/>
         </Grid>
-      </Grid>
       )
     })}
-  </>
+  </Grid>
   )
 }
 
@@ -167,11 +183,9 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
     <>
       <CategoryDrawer products={products} categories={categories} />
       <Container>
-        <Typography variant="h1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, tempora!</Typography>
-        <Grid container justify="center" alignItems="flex-start">
+        <Grid container>
           <MenuContent products={products} categories={categories}/>
-          <Button>I'm a button</Button>
-          <MenuCard/>
+          <SelectedItem/>
         </Grid>
       </Container>
     </>
