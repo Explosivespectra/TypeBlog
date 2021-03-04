@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: "center",
     alignItems: "center",
     maxWidth: "50rem",
+    margin: "0 1rem",
   },
   landingH2: {
     fontFamily: "Helvetica",
@@ -75,6 +76,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   carouselBloatieFloatie: {
     marginTop: "2rem",
+  },
+  customerPicture: {
+    display: "block",
+    width: "100%",
+    [theme.breakpoints.down('sm')]: {
+      width: "100%",
+    },
   },
   customerName: {
     fontSize: "2rem",
@@ -126,9 +134,9 @@ const HomePage: React.FC = () => {
             {/* <div style={{ position: "absolute", width: "100%", height: "5000px", boxShadow: "0 0 7.5rem #555555" }}></div> */}
             <Carousel className={classes.carouselBloatieFloatie} indicators={true} autoPlay={false}>
               <div style={{ backgroundColor: "white" }}>
-                <Grid container>
+                <Grid container >
                   <Grid item sm={12} md={4}>
-                    <img src={myImg4} style={{ width: "100%", maxWidth: "100%", display: "block" }} />
+                    <img src={myImg4} className={classes.customerPicture} />
                   </Grid>
                   <Grid item sm={12} md={8}>
                     <img src={myImg3} style={{ position: "absolute", marginTop: "1rem", marginLeft: "1rem", width: "15%", display: "block", opacity: 0.1 }} />
