@@ -38,9 +38,26 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     color: "#999999",
     backgroundColor: "#131313",
     paddingTop: "0.5rem",
-    // "& a": {
-    //   backgroundColor: "red"
-    // }
+    "& h6": {
+      fontSize: "1rem",
+      fontWeight: "bold",
+    },
+  },
+  hr: {
+    backgroundColor: "#676767",
+    height: "1px",
+    margin: "1rem 0",
+    padding: 0,
+  },
+  linkGroupLink: {
+    textDecoration: "none",
+    color: "#999999",
+    "& p": {
+      margin: 0,
+    },
+    '&:hover': {
+      textDecoration: "underline",
+    },
   },
   footerCopySection: {
     color: "#676767",
@@ -97,7 +114,6 @@ const SiteCore: React.FC = () => {
 
             </div>
           </Container>
-          {/* </Grid> */}
         </Toolbar>
       </AppBar>
       <Toolbar />
@@ -108,37 +124,45 @@ const SiteCore: React.FC = () => {
         <Route path="/about-us" component={AboutPage} />
         <Route path="/contact-us" component={ContactPage} />
       </Switch>
-      {/* TODO: change HR color */}
-      <section className={classes.footerSection}>
+      <footer className={classes.footerSection}>
         <Container>
           <p>Social Links</p>
-          <hr />
+          <div className={classes.hr} />
           <Grid container>
-            <Grid item>
-              {/* TODO: style these link sections... Child selector not working */}
-              <Typography variant="h5">Link Group</Typography>
-              <a href="#"><p>Link to somn</p></a>
-              <a href="#"><p>Link to somn else</p></a>
-              <a href="#"><p>Link to somwea</p></a>
-              <a href="#"><p>Link to somn</p></a>
-              <a href="#"><p>Link to som doo</p></a>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h6">Link Group</Typography>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somwea</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
             </Grid>
-            <Grid item>
-
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h6">Link Group</Typography>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somwea</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
             </Grid>
-            <Grid item>
-
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h6">Link Group</Typography>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somwea</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
+              <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
             </Grid>
           </Grid>
         </Container>
         <section className={classes.footerCopySection}>
           <Container>
             <p>
-              Privacy Policy, Terms and Conditions, other legal docs nobody reads, Copyrights, and other credits
+              Privacy Policy, Terms and Conditions, Copyrights, and other credits and legal docs nobody reads. Also, I can steal your information.
             </p>
           </Container>
         </section>
-      </section>
+      </footer>
     </>
   );
 }

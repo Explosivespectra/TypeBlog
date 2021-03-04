@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-import myImg from "../../assets/foods-lineup.png";
+import myImg0 from "../../assets/home-titler.png";
+import myImg1 from "../../assets/foods-lineup.png";
 import myImg2 from "./../../assets/customer-bg.jpg";
 import myImg3 from "./../../assets/lumine-with-mask-aka-enimul.png";
 
@@ -28,6 +29,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: "center",
     alignItems: "center",
     padding: "7rem 0",
+  },
+  landingSectionInner: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth: "50rem",
   },
   landingH2: {
     fontFamily: "Helvetica",
@@ -58,32 +66,65 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
-  customerOverlay: {
+  customerBgColorOverlay: {
     minHeight: "100%",
     minWidth: "100%",
     backgroundColor: "#FFFB",
   },
-  customerBloatieFloatie: {
+  carouselArrows: {
+    width: "3.75rem",
+    height: "3.75rem",
+    textAlign: "center",
+    color: "white",
+    backgroundColor: "#2d2f33",
+    borderRadius: "50%",
+    "& span": {
+      lineHeight: "3.75rem",
+    },
+    "& div": {
+      display: "inline-block",
+      verticalAlign: "middle",
+    },
+  },
+  carouselBloatieFloatie: {
     backgroundColor: "white",
     boxShadow: "0 0 7.5rem #555555",
     marginTop: "2rem",
+    marginBottom: "1rem",
   },
   customerName: {
     fontSize: "2rem",
     fontWeight: 700,
   },
+  carouselDots: {
+    textAlign: "center",
+    padding: 0,
+    margin: 0,
+    "& div": {
+      display: "inline-block",
+      borderRadius: "50%",
+      backgroundColor: "#2d2f3366",
+      width: "1.25rem",
+      height: "1.25rem",
+      margin: "0 0.6rem",
+    },
+    "& div:nth-child(3)": {
+      backgroundColor: "#2d2f33",
+    },
+  },
 }));
 
+{/* TODO: Look at Material UI built in animation */ }
 const HomePage: React.FC = () => {
   const classes = useStyles();
   return (<>
     {/* TODO: What should be the background? */}
-    {/* TODO: Make "The WORDS of TEYVAT" a png for responsiveness */}
     <section className={classes.landingSection}>
-      <Typography variant="h2" className={classes.landingH2}>Welcome to</Typography>
-      <Typography variant="h1" className={classes.landingH1}>The <span className={classes.landingFoods}>FOODS</span> of</Typography>
-      <Typography variant="h1" className={`${classes.landingH1} ${classes.landingTeyvat}`}>TEYVAT</Typography>
-      <img src={myImg} style={{ maxWidth: "100%", display: "block" }} />
+      <div className={classes.landingSectionInner}>
+        {/* TODO: is there global overrides? */}
+        <img src={myImg0} style={{ maxWidth: "100%", display: "block" }} />
+        <img src={myImg1} style={{ maxWidth: "90%", display: "block" }} />
+      </div>
     </section>
     {/* TODO: Add minimal designs to the background like -> https://www.hoyolab.com/genshin/ */}
     <section className={`${classes.paddedSection} ${classes.covidSection}`}>
@@ -95,6 +136,7 @@ const HomePage: React.FC = () => {
         </p>
       </Container>
     </section>
+    {/* TODO: Add the Xiangling sticky */}
     {/* TODO: Add minimal designs to the background like -> https://www.hoyolab.com/genshin/ */}
     <section className={classes.paddedSection}>
       <Container>
@@ -108,31 +150,40 @@ const HomePage: React.FC = () => {
     {/* TODO: get a customer service background */}
     {/* TODO: I want the image to be a little shorter, but idk how to do it and keep height when it is alone in row in small viewport */}
     {/* TODO: Add a quote symbol to the background */}
-    {/* TODO: make a custom carousel */}
     <section className={classes.customerSection}>
-      <div className={classes.customerOverlay}>
+      <div className={classes.customerBgColorOverlay}>
         <div className={classes.paddedSection}>
-          <Container>
-            <Typography variant="h2" className={classes.homeH2}>What our customers say about us:</Typography>
-            <div className={classes.customerBloatieFloatie}>
-              <Grid container>
-                <Grid item sm={12} md={4}>
-                  <img src={myImg3} style={{ maxWidth: "100%", display: "block" }} />
-                </Grid>
-                <Grid item sm={12} md={8}>
-                  <div style={{ padding: "1rem 3rem" }}>
-                    <p className={classes.homeP}>
-                      they prey chill i think. except that smiley guy. he succ. he always tell me to giit outta da kitchen
+          {/* <div style={{ display: "flex", flexFlow: "row nowrap", justifyContent: "center", alignItems: "center" }}>
+            <div className={classes.carouselArrows}><span></span><div>{"<"}</div></div>
+            <Container style={{ margin: "0" }}>
+              <Typography variant="h2" className={classes.homeH2}>What our customers say about us:</Typography>
+              <div className={classes.carouselBloatieFloatie}>
+                <Grid container>
+                  <Grid item sm={12} md={4}>
+                    <img src={myImg3} style={{ width: "100%", maxWidth: "100%", display: "block" }} />
+                  </Grid>
+                  <Grid item sm={12} md={8}>
+                    <div style={{ padding: "1rem 3rem" }}>
+                      <p className={classes.homeP}>
+                        they prey chill i think. except that smiley guy. he succ. he always tell me to giit outta da kitchen
                     </p>
-                    <hr />
-                    <p className={classes.customerName}>
-                      Enimul
+                      <hr />
+                      <p className={classes.customerName}>
+                        enimuL
                     </p>
-                  </div>
+                    </div>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </div>
-          </Container>
+              </div>
+              <div className={classes.carouselDots}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </Container>
+            <div className={classes.carouselArrows}><span></span><div>{">"}</div></div>
+          </div> */}
         </div>
       </div>
     </section>
