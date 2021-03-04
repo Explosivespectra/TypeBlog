@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import myImg0 from "../../assets/home-titler.png";
 import myImg1 from "../../assets/foods-lineup.png";
 import myImg2 from "./../../assets/customer-bg.jpg";
-import myImg3 from "./../../assets/lumine-with-mask-aka-enimul.png";
+import myImg3 from "./../../assets/quote-marks.png";
+import myImg4 from "./../../assets/lumine-with-mask-aka-enimul.png";
+import Carousel from "react-material-ui-carousel";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   paddedSection: {
@@ -71,46 +73,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     minWidth: "100%",
     backgroundColor: "#FFFB",
   },
-  carouselArrows: {
-    width: "3.75rem",
-    height: "3.75rem",
-    textAlign: "center",
-    color: "white",
-    backgroundColor: "#2d2f33",
-    borderRadius: "50%",
-    "& span": {
-      lineHeight: "3.75rem",
-    },
-    "& div": {
-      display: "inline-block",
-      verticalAlign: "middle",
-    },
-  },
   carouselBloatieFloatie: {
-    backgroundColor: "white",
-    boxShadow: "0 0 7.5rem #555555",
     marginTop: "2rem",
-    marginBottom: "1rem",
   },
   customerName: {
     fontSize: "2rem",
     fontWeight: 700,
-  },
-  carouselDots: {
-    textAlign: "center",
-    padding: 0,
-    margin: 0,
-    "& div": {
-      display: "inline-block",
-      borderRadius: "50%",
-      backgroundColor: "#2d2f3366",
-      width: "1.25rem",
-      height: "1.25rem",
-      margin: "0 0.6rem",
-    },
-    "& div:nth-child(3)": {
-      backgroundColor: "#2d2f33",
-    },
   },
 }));
 
@@ -149,41 +117,36 @@ const HomePage: React.FC = () => {
     </section>
     {/* TODO: get a customer service background */}
     {/* TODO: I want the image to be a little shorter, but idk how to do it and keep height when it is alone in row in small viewport */}
-    {/* TODO: Add a quote symbol to the background */}
     <section className={classes.customerSection}>
       <div className={classes.customerBgColorOverlay}>
         <div className={classes.paddedSection}>
-          {/* <div style={{ display: "flex", flexFlow: "row nowrap", justifyContent: "center", alignItems: "center" }}>
-            <div className={classes.carouselArrows}><span></span><div>{"<"}</div></div>
-            <Container style={{ margin: "0" }}>
-              <Typography variant="h2" className={classes.homeH2}>What our customers say about us:</Typography>
-              <div className={classes.carouselBloatieFloatie}>
+          <Container>
+            <Typography variant="h2" className={classes.homeH2}>What our customers say about us:</Typography>
+            {/* I want this to have this have a shadow, but I don't know how to get it to work with this carousel... */}
+            {/* <div style={{ position: "absolute", width: "100%", height: "5000px", boxShadow: "0 0 7.5rem #555555" }}></div> */}
+            <Carousel className={classes.carouselBloatieFloatie} indicators={true} autoPlay={false}>
+              <div style={{ backgroundColor: "white" }}>
                 <Grid container>
                   <Grid item sm={12} md={4}>
-                    <img src={myImg3} style={{ width: "100%", maxWidth: "100%", display: "block" }} />
+                    <img src={myImg4} style={{ width: "100%", maxWidth: "100%", display: "block" }} />
                   </Grid>
                   <Grid item sm={12} md={8}>
-                    <div style={{ padding: "1rem 3rem" }}>
+                    <img src={myImg3} style={{ position: "absolute", marginTop: "1rem", marginLeft: "1rem", width: "15%", display: "block", opacity: 0.1 }} />
+                    <div style={{ padding: "3rem 4rem" }}>
                       <p className={classes.homeP}>
                         they prey chill i think. except that smiley guy. he succ. he always tell me to giit outta da kitchen
-                    </p>
+                      </p>
                       <hr />
                       <p className={classes.customerName}>
                         enimuL
-                    </p>
+                      </p>
                     </div>
                   </Grid>
                 </Grid>
               </div>
-              <div className={classes.carouselDots}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </Container>
-            <div className={classes.carouselArrows}><span></span><div>{">"}</div></div>
-          </div> */}
+              <div></div>
+            </Carousel>
+          </Container>
         </div>
       </div>
     </section>
