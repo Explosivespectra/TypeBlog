@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column',
     alignItems: 'stretch',
     flexGrow: 1,
-    padding: "max(.2rem, 5%) .1rem max(.2rem, 5%) .1rem",
+    padding: "max(.2rem , 5%) .1rem max(.2rem, 5%) .1rem",
     width: "100%",
     overflow: "hidden",
   },
@@ -186,7 +186,7 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
     <>
       <CategoryDrawer products={products} categories={categories} />
       <Container>
-        <Grid container>
+        <Grid container justify="center">
           <MenuContent products={products} categories={categories}/>
           <SelectedItem/>
         </Grid>
