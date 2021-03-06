@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
   content: {
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: "250px",
+      paddingLeft: "250px"
     }
   },
 
