@@ -5,10 +5,9 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import zhonglisoup from '../../mockData/productImages/temp-adeptustemptation.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
-
   content: {
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: "250px"
+      paddingLeft: "274px"
     }
   },
 
@@ -96,7 +95,7 @@ const MenuCard: React.FC = () => {
           <img src={zhonglisoup} className={classes.cardmediasrc}></img>
         </CardMedia>
         <CardContent className={classes.cardcontent}>
-          <Typography variant="subtitle1" className={classes.cardtext}>Adeptus Temptation</Typography>
+          <Typography variant="subtitle1" className={classes.cardtext}>Slow-cooked Bamboo Shoot Soup</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
@@ -106,12 +105,12 @@ const MenuCard: React.FC = () => {
 const SelectedItem: React.FC = () => {
   return (
     <>
-      <Hidden>
+      <Hidden lgUp>
         <>
 
         </>
       </Hidden>
-      <Hidden>
+      <Hidden mdDown>
         <>
         </>
       </Hidden>
@@ -177,10 +176,10 @@ const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   return (
-    <Grid item container spacing={2} style={{ width: "100%" }}>
+    <Grid item container spacing={2} xs={12}>
       {list.map((category) => {
         return (
-          <Grid item xs={6} md={4} lg={2}>
+          <Grid item xs={6} md={4} lg={3}>
             <MenuCard />
           </Grid>
         )
@@ -195,11 +194,13 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
   return (
     <>
       <CategoryDrawer products={products} categories={categories} />
-      <Container className={classes.content}>
+      <Container className={classes.content} maxWidth={false}>
+        <Hidden mdDown><Toolbar/></Hidden>
         <Grid container justify="center">
           <MenuContent products={products} categories={categories} />
           <SelectedItem />
         </Grid>
+        <Toolbar/>
       </Container>
     </>
   );
