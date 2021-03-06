@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Container, Grid, Hidden, Paper, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import myImg0 from "../../assets/home-titler.png";
 import myImg1 from "../../assets/foods-lineup.png";
-import myImg2 from "./../../assets/customer-bg.jpg";
-import myImg3 from "./../../assets/quote-marks.png";
-import myImg4 from "./../../assets/lumine-with-mask-aka-enimul.png";
+import myImg2 from "../../assets/come-to-the-wanmin-sticky.png";
+import myImg3 from "./../../assets/customer-bg.jpg";
+import myImg4 from "./../../assets/quote-marks.png";
+import myImg5 from "./../../assets/lumine-with-mask-aka-enimul.png";
 import Carousel from "react-material-ui-carousel";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -18,8 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: "4rem",
   },
   homeH2: {
+    color: "white",
     fontFamily: "Genshin",
     fontSize: "3rem",
+    textShadow: "0 0 5rem #000",
   },
   homeP: {
     fontSize: "2rem",
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    maxWidth: "50rem",
+    maxWidth: "60rem",
     margin: "0 1rem",
   },
   landingH2: {
@@ -65,24 +68,24 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 
   customerSection: {
-    backgroundImage: `url(${myImg2})`,
+    backgroundImage: `url(${myImg3})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
   customerBgColorOverlay: {
     minHeight: "100%",
     minWidth: "100%",
-    backgroundColor: "#FFFB",
+    backgroundColor: "#444D",
   },
   carouselBloatieFloatie: {
     marginTop: "2rem",
   },
-  customerPicture: {
-    display: "block",
+  customerPictureDiv: {
+    backgroundImage: `url(${myImg5})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     width: "100%",
-    [theme.breakpoints.down('sm')]: {
-      width: "100%",
-    },
+    height: "100%",
   },
   customerName: {
     fontSize: "2rem",
@@ -91,6 +94,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 {/* TODO: Look at Material UI built in animation */ }
+{/* TODO: move things out to components */ }
 const HomePage: React.FC = () => {
   const classes = useStyles();
   return (<>
@@ -98,8 +102,8 @@ const HomePage: React.FC = () => {
     <section className={classes.landingSection}>
       <div className={classes.landingSectionInner}>
         {/* TODO: is there global overrides? */}
-        <img src={myImg0} style={{ maxWidth: "100%", display: "block" }} />
-        <img src={myImg1} style={{ maxWidth: "90%", display: "block" }} />
+        <img src={myImg0} />
+        <img src={myImg1} style={{ maxWidth: "90%" }} />
       </div>
     </section>
     {/* TODO: Add minimal designs to the background like -> https://www.hoyolab.com/genshin/ */}
@@ -112,7 +116,7 @@ const HomePage: React.FC = () => {
         </p>
       </Container>
     </section>
-    {/* TODO: Add the Xiangling sticky */}
+    <a href="lezgo-chingling-bby"><img src={myImg2} style={{ position: "absolute", right: "10%", width: "80%", maxWidth: "20rem", transform: "translateY(-55%)" }} /></a>
     {/* TODO: Add minimal designs to the background like -> https://www.hoyolab.com/genshin/ */}
     <section className={classes.paddedSection}>
       <Container>
@@ -123,23 +127,25 @@ const HomePage: React.FC = () => {
         </p>
       </Container>
     </section>
-    {/* TODO: get a customer service background */}
-    {/* TODO: I want the image to be a little shorter, but idk how to do it and keep height when it is alone in row in small viewport */}
     <section className={classes.customerSection}>
       <div className={classes.customerBgColorOverlay}>
         <div className={classes.paddedSection}>
           <Container>
             <Typography variant="h2" className={classes.homeH2}>What our customers say about us:</Typography>
-            {/* I want this to have this have a shadow, but I don't know how to get it to work with this carousel... */}
-            {/* <div style={{ position: "absolute", width: "100%", height: "5000px", boxShadow: "0 0 7.5rem #555555" }}></div> */}
+            {/* I want this to have this have a shadow, but I don't know how to do that with this premade carousel... */}
             <Carousel className={classes.carouselBloatieFloatie} indicators={true} autoPlay={false}>
               <div style={{ backgroundColor: "white" }}>
                 <Grid container >
                   <Grid item sm={12} md={4}>
-                    <img src={myImg4} className={classes.customerPicture} />
+                    <Hidden mdUp>
+                      <img src={myImg5} />
+                    </Hidden>
+                    <Hidden smDown>
+                      <div className={classes.customerPictureDiv}></div>
+                    </Hidden>
                   </Grid>
                   <Grid item sm={12} md={8}>
-                    <img src={myImg3} style={{ position: "absolute", marginTop: "1rem", marginLeft: "1rem", width: "15%", display: "block", opacity: 0.1 }} />
+                    <img src={myImg4} style={{ position: "absolute", marginTop: "1rem", marginLeft: "1rem", width: "15%", opacity: 0.1 }} />
                     <div style={{ padding: "3rem 4rem" }}>
                       <p className={classes.homeP}>
                         they prey chill i think. except that smiley guy. he succ. he always tell me to giit outta da kitchen
@@ -152,7 +158,8 @@ const HomePage: React.FC = () => {
                   </Grid>
                 </Grid>
               </div>
-              <div></div>
+              <div style={{ backgroundColor: "white" }}>
+              </div>
             </Carousel>
           </Container>
         </div>

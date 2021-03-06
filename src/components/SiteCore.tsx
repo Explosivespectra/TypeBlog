@@ -123,13 +123,14 @@ const SiteCore: React.FC = () => {
         <Route path="/online-order" component={OrderPage} />
         <Route path="/about-us" component={AboutPage} />
         <Route path="/contact-us" component={ContactPage} />
+        <Route path="/lezgo-chingling-bby" component={() => <div><h1>Itz chingling's site baby</h1><p>LETS GO. ITS THE CHINGLING SITE. TIME TO EAT WANMIN FOOOOOOOOD</p></div>} />
       </Switch>
       <footer className={classes.footerSection}>
         <Container>
           <p>Social Links</p>
           <div className={classes.hr} />
           <Grid container>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} md={2}>
               <Typography variant="h6">Link Group</Typography>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
@@ -137,7 +138,7 @@ const SiteCore: React.FC = () => {
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} md={2}>
               <Typography variant="h6">Link Group</Typography>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
@@ -145,13 +146,16 @@ const SiteCore: React.FC = () => {
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} md={2}>
               <Typography variant="h6">Link Group</Typography>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn else</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to somwea</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to somn</p></a>
               <a href="#" className={classes.linkGroupLink}><p>Link to som doo</p></a>
+            </Grid>
+            <Grid item sm={12} md={6}>
+              <h1 style={{ height: "100%", textAlign: "center", borderLeft: "solid 1px white", margin: 0 }}>BEEG<br />DEVS</h1>
             </Grid>
           </Grid>
         </Container>

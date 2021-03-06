@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   cardmediasrc: {
     maxWidth: "95%",
-    height: "auto",
   },
 }));
 
