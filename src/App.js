@@ -1,14 +1,14 @@
-import { CssBaseline } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
-import { ThemeProvider, Theme, createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
+import { ThemeProvider, Theme, createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router } from "react-router-dom";
-import SiteCore from './components/SiteCore'
+import SiteCore from "./components/SiteCore";
 
 // ADD DA GANCHAN FONT
 import Genshin from "./fonts/ja-jp.ttf";
 const genshinFont = {
-  fontFamily: 'Genshin',
-  fontStyle: 'bold',
+  fontFamily: "Genshin",
+  fontStyle: "bold",
   fontWeight: 900,
   src: `url(${Genshin}) format('truetype')`,
 };
@@ -21,11 +21,11 @@ const theme = {
     },
     primary: {
       main: "#2d2f33",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
     text: {
       primary: "#2d2f33",
-      secondary: "#2d2f33"
+      secondary: "#2d2f33",
     },
   },
   typography: {
@@ -33,13 +33,14 @@ const theme = {
   },
   overrides: {
     MuiCssBaseline: {
-      '@global': {
-        '@font-face': genshinFont,
+      "@global": {
+        "@font-face": genshinFont,
         html: {
           overflowY: "scroll",
         },
         img: {
           display: "block",
+          width: "100%",
           maxWidth: "100%",
         },
       },
@@ -51,10 +52,10 @@ const theme = {
         color: "#495366",
         borderRadius: "100px 100px 100px 100px",
         textTransform: "none",
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 
 const App = () => {
   return (
@@ -65,6 +66,6 @@ const App = () => {
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
