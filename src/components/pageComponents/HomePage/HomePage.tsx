@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Container, Grid, Hidden, Paper, Typography } from "@material-ui/core";
+import React from "react";
+import { Container, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Carousel from "react-material-ui-carousel";
+
+import CarouselItem from "./ChildComponents/CarouselItem";
 
 import myImg0 from "../../../assets/home-titler.png";
 import myImg1 from "../../../assets/foods-lineup.png";
@@ -10,11 +12,9 @@ import myImg2 from "../../../assets/come-to-the-wanmin-sticky.png";
 import myImg20 from "../../../assets/welcome-bg.png";
 import myImg3 from "../../../assets/customer-bg.jpg";
 
-import "./animTest.css";
-
-import quoteImg from "../../../assets/quote-marks.png";
 import enimulImg from "../../../assets/lumine-with-mask-aka-enimul.png";
 import jackImg from "../../../assets/just-manly-jack.png";
+import classes from "*.module.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "white",
       fontFamily: "Genshin",
       fontSize: "3rem",
-      textShadow: "0 0 5rem #000",
     },
     homeP: {
       fontSize: "2rem",
@@ -77,6 +76,17 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundPosition: "center",
     },
 
+    xianglingSticky: {
+      position: "absolute",
+      right: "10%",
+      width: "80%",
+      maxWidth: "20rem",
+      transform: "translateY(-55%)",
+      "& img:hover": {
+        transform: "scale(1.1, 1.1)",
+      }
+    },
+
     welcomeSection: {
       backgroundImage: `url(${myImg20})`,
       backgroundSize: "cover",
@@ -91,7 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
     customerBgColorOverlay: {
       minHeight: "100%",
       minWidth: "100%",
-      backgroundColor: "#444D",
+      backgroundColor: "#171728DD",
     },
     carouselBloatieFloatie: {
       marginTop: "2rem",
@@ -109,12 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-{
-  /* TODO: Look at Material UI built in animation */
-}
-{
-  /* TODO: move things out to components */
-}
+// TODO: move things out to components
 const HomePage: React.FC = () => {
   const classes = useStyles();
 
@@ -131,18 +136,13 @@ const HomePage: React.FC = () => {
         "i love skwewers brodda. gimme dem skewers. they so tasty and i eat them all in one bit because im so manly.",
       img: jackImg,
     },
-    // {
-    //   name: "A sticky",
-    //   text: "was good iz chingling. Have you gone to the Wanmin yet?",
-    //   img: myImg2
-    // },
   ];
 
   return (
     <>
       {/* TODO: What should be the background? */}
       <section className={classes.landingSection}>
-        <div className={`${classes.landingSectionInner} toto`}>
+        <div className={classes.landingSectionInner}>
           <img src={myImg0} />
           <img src={myImg1} style={{ maxWidth: "90%" }} />
         </div>
@@ -159,18 +159,7 @@ const HomePage: React.FC = () => {
           </p>
         </Container>
       </section>
-      <a
-        href="lezgo-chingling-bby"
-        style={{
-          position: "absolute",
-          right: "10%",
-          width: "80%",
-          maxWidth: "20rem",
-          transform: "translateY(-55%)",
-        }}
-      >
-        <img src={myImg2} />
-      </a>
+      <XianglingSticky />
       <section className={`${classes.paddedSection} ${classes.welcomeSection}`}>
         <Container>
           <Typography variant="h1" className={classes.homeH1}>
@@ -210,67 +199,14 @@ const HomePage: React.FC = () => {
 
 export { HomePage };
 
-const useStyles2 = makeStyles((theme: Theme) =>
-  createStyles({
-    customerPictureDiv: {
-      width: "100%",
-      height: "100%",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    },
-    customerMsg: {
-      fontSize: "2rem",
-    },
-    customerName: {
-      fontSize: "2rem",
-      fontWeight: 700,
-    },
-  })
-);
 
-type CarouselItemProps = {
-  data: {
-    name: string;
-    text: string;
-    img: string;
-  };
-};
-const CarouselItem: React.FC<CarouselItemProps> = ({ data }) => {
-  const classes = useStyles2();
+const XianglingSticky = () => {
+  const classes = useStyles();
+  return <a
+    href="lezgo-chingling-bby"
+    className={classes.xianglingSticky}
+  >
+    <img src={myImg2} />
+  </a >;
+}
 
-  return (
-    <Paper elevation={3}>
-      <Grid container style={{ backgroundColor: "white" }}>
-        <Grid item sm={12} md={4}>
-          <Hidden mdUp>
-            <img src={data.img} />
-          </Hidden>
-          <Hidden smDown>
-            <div
-              className={classes.customerPictureDiv}
-              style={{ backgroundImage: `url(${data.img})` }}
-            ></div>
-          </Hidden>
-        </Grid>
-        <Grid item sm={12} md={8}>
-          {/* Quote Img in BG */}
-          <img
-            src={quoteImg}
-            style={{
-              position: "absolute",
-              width: "15%",
-              opacity: 0.1,
-              marginTop: "1rem",
-              marginLeft: "1rem",
-            }}
-          />
-          <div style={{ padding: "3rem 4rem" }}>
-            <p className={classes.customerMsg}>{data.text}</p>
-            <hr />
-            <p className={classes.customerName}>{data.name}</p>
-          </div>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
-};
