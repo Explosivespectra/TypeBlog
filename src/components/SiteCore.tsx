@@ -3,8 +3,12 @@ import { Switch, Route, Link } from "react-router-dom";
 import {
   Container,
   AppBar,
-  Button,
+  IconButton,
   Grid,
+  Hidden,
+  Drawer,
+  List,
+  ListItem,
   MenuItem,
   Popper,
   Toolbar,
@@ -12,6 +16,7 @@ import {
   Paper,
   ButtonBase,
 } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { HomePage } from "./pageComponents/HomePage/HomePage";
 import { MenuPage } from "./pageComponents/MenuPage/MenuPage";
@@ -82,6 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SiteCore: React.FC = () => {
   const [menuLoc, setMenu] = useState<HTMLElement | null>(null);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const classes = useStyles();
 
@@ -124,45 +130,80 @@ const SiteCore: React.FC = () => {
               >
                 FoT
               </Typography>
-              {simpleNavButtonGridItem("/", "Home")}
-              <ButtonBase
-                className={classes.appbarlink}
-                color="inherit"
-                component={Link}
-                to="/menu"
-                onMouseOver={(
-                  event: React.MouseEvent<HTMLElement, MouseEvent>
-                ) => {
-                  if (menuLoc !== event.currentTarget) {
-                    setMenu(event.currentTarget);
-                  }
-                }}
-                onMouseLeave={() => {
-                  setMenu(null);
-                }}
-              >
-                Menu
-                <Popper
-                  className={classes.popper}
-                  keepMounted
-                  open={Boolean(menuLoc)}
-                  anchorEl={menuLoc}
-                  placement="bottom"
+              <Hidden smDown>
+                {simpleNavButtonGridItem("/", "Home")}
+                <ButtonBase
+                  className={classes.appbarlink}
+                  color="inherit"
+                  component={Link}
+                  to="/menu"
+                  onMouseOver={(
+                    event: React.MouseEvent<HTMLElement, MouseEvent>
+                  ) => {
+                    if (menuLoc !== event.currentTarget) {
+                      setMenu(event.currentTarget);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    setMenu(null);
+                  }}
                 >
-                  <Paper className={classes.popperpaper}>
-                    {productData.categories.map((category) => {
-                      return (
-                        <MenuItem key={category}>
-                          <div className={classes.navtext}>{category}</div>
-                        </MenuItem>
-                      );
-                    })}
-                  </Paper>
-                </Popper>
-              </ButtonBase>
-              {simpleNavButtonGridItem("/online-order", "Online Order")}
-              {simpleNavButtonGridItem("/about-us", "About Us")}
-              {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+                  Menu
+                  <Popper
+                    className={classes.popper}
+                    keepMounted
+                    open={Boolean(menuLoc)}
+                    anchorEl={menuLoc}
+                    placement="bottom"
+                  >
+                    <Paper className={classes.popperpaper}>
+                      {productData.categories.map((category) => {
+                        return (
+                          <MenuItem key={category}>
+                            <div className={classes.navtext}>{category}</div>
+                          </MenuItem>
+                        );
+                      })}
+                    </Paper>
+                  </Popper>
+                </ButtonBase>
+                {simpleNavButtonGridItem("/online-order", "Online Order")}
+                {simpleNavButtonGridItem("/about-us", "About Us")}
+                {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+              </Hidden>
+              <Hidden mdUp>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    setExpanded(true);
+                  }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Drawer
+                  open={expanded}
+                  anchor="top"
+                  onClose={() => {
+                    setExpanded(false);
+                  }}
+                >
+                  <List>
+                    <ListItem>{simpleNavButtonGridItem("/", "Home")}</ListItem>
+                    <ListItem>
+                      {simpleNavButtonGridItem("/menu", "Menu")}
+                    </ListItem>
+                    <ListItem>
+                      {simpleNavButtonGridItem("/online-order", "Online Order")}
+                    </ListItem>
+                    <ListItem>
+                      {simpleNavButtonGridItem("/about-us", "About Us")}
+                    </ListItem>
+                    <ListItem>
+                      {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+                    </ListItem>
+                  </List>
+                </Drawer>
+              </Hidden>
             </div>
           </Container>
         </Toolbar>
