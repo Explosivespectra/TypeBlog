@@ -1,5 +1,4 @@
 import { CssBaseline } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
 import { ThemeProvider, Theme, createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router } from "react-router-dom";
 import SiteCore from "./components/SiteCore";
