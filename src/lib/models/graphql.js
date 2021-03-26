@@ -1,29 +1,26 @@
-const { ExploreOffRounded } = require("@material-ui/icons");
-
 module.exports = (app) => {
   const sql = require("./db.js");
   const { buildSchema } = require("graphql");
   const { graphqlHTTP } = require("express-graphql");
 
   const schema = buildSchema(`
-
     type Product {
-    id: Int!
-    name: String!
-    description: String!
-    cost: Float!
-    rarity: Int!
-    restaurantId: Int
-    region: String
-    imgFileName: String!
+      id: Int!
+      name: String!
+      description: String!
+      cost: Float!
+      rarity: Int!
+      restaurantId: Int
+      region: String
+      imgFileName: String!
     }
 
     type Restaurant {
-    id: Int!
-    name: String!
-    description: String!
-    region: String!
-    products: [Product]!
+      id: Int!
+      name: String!
+      description: String!
+      region: String!
+      products: [Product]!
     }
 
     type Query {
@@ -34,7 +31,7 @@ module.exports = (app) => {
       productsByRegion(region: String): [Product]!
       restaurant(id: Int!): Restaurant!
     }
-    `);
+  `);
 
   const root = {
     products: async () => {

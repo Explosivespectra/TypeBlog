@@ -14,8 +14,8 @@
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
-    "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-material-ui-carousel": "^2.2.1",
@@ -25,7 +25,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "node ./src/lib/server && react-scripts start",
+    "server": "nodemon ./src/lib/server",
+    "client": "react-scripts start",
+    "start": "nodemon ./src/lib/server && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
