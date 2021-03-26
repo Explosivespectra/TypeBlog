@@ -28,89 +28,85 @@ module.exports = (app) => {
 
     type Query {
       products: [Product]!
-      product(name: String!): Product!
+      product(id: Int!): Product!
       regions: [String]!
       restaurantsByRegion(region: String): [Restaurant]!
       productsByRegion(region: String): [Product]!
-      restaurant(name: String!): Restaurant!
+      restaurant(id: Int!): Restaurant!
     }
     `);
 
   const root = {
     products: async () => {
-      await sql.query("SELECT * FROM products", (err, res) => {
-        console.log({ ...res[0] });
-        if (err) {
-          return [];
-        }
-        return res.map((product) => {
-          return { ...product };
+      return sql
+        .promise()
+        .query("SELECT * FROM products")
+        .then(([products, fields]) => {
+          products = products.map((product) => {
+            return { ...product };
+          });
+          console.log(products);
+          return products;
         });
-      });
     },
     productsByRegion: async ({ region }) => {
-      await sql.query(
-        `SELECT * FROM products WHERE region = ${region}`,
-        (err, res) => {
-          if (err) {
-            return {};
-          }
-          return res;
-        }
-      );
+      return sql
+        .promise()
+        .query(`SELECT * FROM products WHERE region = ${region}`)
+        .then(([products, fields]) => {
+          products = products.map((product) => {
+            return { ...product };
+          });
+          console.log(products);
+          return products;
+        });
     },
-    product: async ({ name }) => {
-      await sql.query(
-        `SELECT * FROM products WHERE name = ${name}`,
-        (err, res) => {
-          if (err) {
-            return {};
-          }
-          return res[0];
-        }
-      );
+    product: async ({ id }) => {
+      return sql
+        .promise()
+        .query(`SELECT * FROM products WHERE id = ${id}`)
+        .then(([products, fields]) => {
+          return { ...products[0] };
+        });
     },
     regions: () => {
       return ["Mondstadt", "Liyue"];
     },
-    restaurant: async ({ name }) => {
+    restaurant: async ({ id }) => {
+      console.log(id);
       let ret = {};
-      let retID = -1;
-      await sql.query(
-        `SELECT * FROM restaurants WHERE name = ${name}`,
-        (err, res) => {
-          if (err) {
-            return {};
-          }
-          ret = res[0];
-          retID = res[0].id;
-        }
-      );
-      await sql.query(
-        `SELECT * FROM products WHERE restaurantId = ${retID}`,
-        (err, res) => {
-          if (err) {
-            return {};
-          }
-          ret.products = res;
-        }
-      );
-      return ret;
+      let firstQuery = sql
+        .promise()
+        .query(`SELECT * FROM restaurants WHERE id = ${id}`);
+      let secondQuery = sql
+        .promise()
+        .query(`SELECT * FROM products WHERE restaurantId = ${id}`);
+      return Promise.all([firstQuery, secondQuery]).then((results) => {
+        retDummy = results[0][0];
+        console.log(retDummy);
+        ret = { ...retDummy[0] };
+        ret.products = results[1][0].map((product) => {
+          return { ...product };
+        });
+        console.log(ret);
+        return ret;
+      });
     },
     restaurantsByRegion: async ({ region }) => {
-      await sql.query(
-        `SELECT name FROM restaurants WHERE region = ${region}`,
-        (err, res) => {
-          if (err) {
-            return [];
+      region = region.replace(/"/g, "'");
+      let ret = [];
+      return sql
+        .promise()
+        .execute("SELECT id FROM restaurants WHERE region = ?", [region])
+        .then(async ([restaurantIds, fields]) => {
+          ret = restaurantIds.map((restaurant) => {
+            return { ...restaurant };
+          });
+          for (let i = 0; i < ret.length; ++i) {
+            ret[i] = await root.restaurant({ id: ret[i].id });
           }
-          console.log(res);
-          for (let i = 0; i < res.length; ++i) {
-            res[i] = root.restaurant(res[i].name);
-          }
-          return res;
-        }
-      );
+          return ret;
+        });
     },
   };
 
