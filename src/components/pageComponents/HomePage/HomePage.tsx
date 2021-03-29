@@ -14,7 +14,6 @@ import myImg3 from "../../../assets/customer-bg.jpg";
 
 import enimulImg from "../../../assets/lumine-with-mask-aka-enimul.png";
 import jackImg from "../../../assets/just-manly-jack.png";
-import classes from "*.module.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

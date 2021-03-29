@@ -24,7 +24,9 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import zhonglisoup from "../../../mockData/productImages/temp-adeptustemptation.png";
+import zhonglisoup from "../../mockData/productImages/temp-adeptustemptation.png";
+import PaimonBanner from "./PaimonBanner"
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
@@ -238,7 +240,7 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
     <Grid item container spacing={2} xs={12}>
       {list.map((category) => {
         return (
-          <Grid item xs={6} md={4} lg={3}>
+          <Grid item xs={6} md={4} lg={3} xl={2}>
             <MenuCard />
           </Grid>
         );
@@ -247,13 +249,14 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   );
 };
 
-const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
+const PaimonSite: React.FC<ContentProps> = ({ products, categories = ["All Foods", "Mondstadt", "Liyue Harbor", "Homeless Foods"] }) => {
   const classes = useStyles();
 
   return (
     <>
       <CategoryDrawer products={products} categories={categories} />
       <Container className={classes.content} maxWidth={false}>
+        <PaimonBanner />
         <Hidden mdDown>
           <Toolbar />
         </Hidden>
@@ -267,4 +270,4 @@ const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
   );
 };
 
-export { MenuPage };
+export default PaimonSite;

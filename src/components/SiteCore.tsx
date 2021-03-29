@@ -4,7 +4,6 @@ import {
   Container,
   AppBar,
   IconButton,
-  Grid,
   Hidden,
   Drawer,
   List,
@@ -23,7 +22,10 @@ import { MenuPage } from "./pageComponents/MenuPage/MenuPage";
 import { OrderPage } from "./pageComponents/OrderPage/OrderPage";
 import { AboutPage } from "./pageComponents/AboutPage/AboutPage";
 import { ContactPage } from "./pageComponents/ContactPage/ContactPage";
+import { Footer } from "./SiteCoreChildren/Footer";
 import productData from "../mockData/products.json";
+
+import PaimonSite from "./temp/PaimonSite";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,37 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
     navtext: {
       style: theme.typography.button,
       color: theme.palette.primary.contrastText,
-    },
-    footerSection: {
-      color: "#999999",
-      backgroundColor: "#131313",
-      paddingTop: "0.5rem",
-      "& h6": {
-        fontSize: "1rem",
-        fontWeight: "bold",
-      },
-    },
-    hr: {
-      backgroundColor: "#676767",
-      height: "1px",
-      margin: "1rem 0",
-      padding: 0,
-    },
-    linkGroupLink: {
-      textDecoration: "none",
-      color: "#999999",
-      "& p": {
-        margin: 0,
-      },
-      "&:hover": {
-        textDecoration: "underline",
-      },
-    },
-    footerCopySection: {
-      color: "#676767",
-      backgroundColor: "#080808",
-      padding: "0.5rem 0",
-      marginTop: "2rem",
     },
   })
 );
@@ -234,93 +205,11 @@ const SiteCore: React.FC = () => {
             </div>
           )}
         />
+        <Route path="/temp-paimon" component={PaimonSite} />
       </Switch>
-      <footer className={classes.footerSection}>
-        <Container>
-          <p>Social Links</p>
-          <div className={classes.hr} />
-          <Grid container>
-            <Grid item xs={12} sm={4} md={2}>
-              <Typography variant="h6">Link Group</Typography>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn else</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somwea</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to som doo</p>
-              </a>
-            </Grid>
-            <Grid item xs={12} sm={4} md={2}>
-              <Typography variant="h6">Link Group</Typography>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn else</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somwea</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to som doo</p>
-              </a>
-            </Grid>
-            <Grid item xs={12} sm={4} md={2}>
-              <Typography variant="h6">Link Group</Typography>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn else</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somwea</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to somn</p>
-              </a>
-              <a href="#" className={classes.linkGroupLink}>
-                <p>Link to som doo</p>
-              </a>
-            </Grid>
-            <Grid item sm={12} md={6}>
-              <h1
-                style={{
-                  height: "100%",
-                  textAlign: "center",
-                  borderLeft: "solid 1px white",
-                  margin: 0,
-                }}
-              >
-                BEEG
-                <br />
-                DEVS
-              </h1>
-            </Grid>
-          </Grid>
-        </Container>
-        <section className={classes.footerCopySection}>
-          <Container>
-            <p>
-              Privacy Policy, Terms and Conditions, Copyrights, and other
-              credits and legal docs nobody reads. Also, I can steal your
-              information.
-            </p>
-          </Container>
-        </section>
-      </footer>
+      {/* <Footer /> */}
     </>
   );
 };
+
 export default SiteCore;
