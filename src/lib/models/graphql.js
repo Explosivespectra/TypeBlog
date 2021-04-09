@@ -1,5 +1,3 @@
-const { ExploreOffRounded } = require("@material-ui/icons");
-
 module.exports = (app) => {
   const sql = require("./db.js");
   const { buildSchema } = require("graphql");
