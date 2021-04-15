@@ -28,8 +28,8 @@ module.exports = (app) => {
       products: [Product]!
       product(id: Int!): Product!
       regions: [String]!
-      restaurantsByRegion(region: String): [Restaurant]!
-      productsByRegion(region: String): [Product]!
+      restaurantsByRegion(region: String!): [Restaurant]!
+      productsByRegion(region: String!): [Product]!
       restaurant(id: Int!): Restaurant!
     }
     `);

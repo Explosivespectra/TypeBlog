@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { REGIONS_QUERY } from "./queries.js";
 import { Switch, Route, Link } from "react-router-dom";
 import {
   Container,
@@ -211,15 +213,7 @@ const SiteCore: React.FC = () => {
       <Toolbar />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route
-          path="/menu"
-          render={() => (
-            <MenuPage
-              products={productData.products}
-              categories={productData.categories}
-            />
-          )}
-        />
+        <Route path="/menu" render={() => <MenuPage />} />
         <Route path="/online-order" component={OrderPage} />
         <Route path="/about-us" component={AboutPage} />
         <Route path="/contact-us" component={ContactPage} />

@@ -1,4 +1,13 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import {
+  ALL_PRODUCTS_QUERY,
+  PRODUCTS_BY_REGION_QUERY,
+  RESTAURANTS_FOR_REGION_QUERY,
+  RESTAURANT_AND_PRODUCTS_QUERY,
+  REGIONS_QUERY,
+  PRODUCT_DETAIL_QUERY,
+} from "../../queries.js";
 import {
   Typography,
   Grid,
@@ -7,7 +16,7 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
-  Button,
+  CircularProgress,
   SvgIcon,
   SvgIconProps,
   IconButton,
@@ -103,7 +112,6 @@ const GenshinMenuPrimaryIcon: React.FC = (props: SvgIconProps) => {
 type ContentProps = { products: Array<object>; categories: Array<string> };
 type DrawerProps = {
   chosenCategory: number;
-  categories: Array<string>;
   sendChosen: CallableFunction;
 };
 
@@ -141,14 +149,25 @@ const SelectedItem: React.FC = () => {
 
 const DrawerContent: React.FC<DrawerProps> = ({
   chosenCategory,
-  categories,
   sendChosen,
 }) => {
   const classes = useStyles();
 
+  const { loading, error, data } = useQuery(REGIONS_QUERY);
+
+  if (error)
+    return (
+      <Typography variant="subtitle1" className={classes.navcontent}>
+        Error
+      </Typography>
+    );
+  if (loading) return <CircularProgress />;
+
+  const regions = data.regions;
+
   return (
     <List>
-      {categories.map((category, ind) => {
+      {regions.map((category: any, ind: any) => {
         return (
           <ListItem
             key={category}
@@ -174,7 +193,7 @@ const DrawerContent: React.FC<DrawerProps> = ({
   );
 };
 
-const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
+const CategoryDrawer: React.FC = () => {
   const classes = useStyles();
 
   const [openDrawer, setDrawer] = useState<boolean>(false);
@@ -193,7 +212,6 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
           <Toolbar />
           <DrawerContent
             chosenCategory={currentCategory}
-            categories={categories}
             sendChosen={(ind: number) => {
               setCategory(ind);
             }}
@@ -220,7 +238,6 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
           <Toolbar />
           <DrawerContent
             chosenCategory={currentCategory}
-            categories={categories}
             sendChosen={(ind: number) => {
               setCategory(ind);
             }}
@@ -233,7 +250,7 @@ const CategoryDrawer: React.FC<ContentProps> = ({ products, categories }) => {
 
 const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
+const MenuContent: React.FC = () => {
   return (
     <Grid item container spacing={2} xs={12}>
       {list.map((category) => {
@@ -247,18 +264,18 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
   );
 };
 
-const MenuPage: React.FC<ContentProps> = ({ products, categories }) => {
+const MenuPage: React.FC = () => {
   const classes = useStyles();
 
   return (
     <>
-      <CategoryDrawer products={products} categories={categories} />
+      <CategoryDrawer />
       <Container className={classes.content} maxWidth={false}>
         <Hidden mdDown>
           <Toolbar />
         </Hidden>
         <Grid container justify="center">
-          <MenuContent products={products} categories={categories} />
+          <MenuContent />
           <SelectedItem />
         </Grid>
         <Toolbar />
