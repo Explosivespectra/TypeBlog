@@ -109,24 +109,36 @@ const GenshinMenuPrimaryIcon: React.FC = (props: SvgIconProps) => {
   );
 };
 
-type ContentProps = { products: Array<object>; categories: Array<string> };
+type MenuCardProps = {
+  name: string;
+  rarity: number;
+  imgFileName: string;
+  id: number;
+};
 type DrawerProps = {
   chosenCategory: number;
   sendChosen: CallableFunction;
 };
 
-const MenuCard: React.FC = () => {
+const MenuCard: React.FC<MenuCardProps> = ({
+  name,
+  rarity,
+  imgFileName,
+  id,
+}) => {
   const classes = useStyles();
-
   return (
     <Card className={classes.menuCard}>
       <CardActionArea onClick={() => {}}>
         <CardMedia className={classes.cardmediaback}>
-          <img src={zhonglisoup} className={classes.cardmediasrc}></img>
+          <img
+            src={`foodAssets/${imgFileName}`}
+            className={classes.cardmediasrc}
+          ></img>
         </CardMedia>
         <CardContent className={classes.cardcontent}>
           <Typography variant="subtitle1" className={classes.cardtext}>
-            Slow-cooked Bamboo Shoot Soup
+            {name}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -248,15 +260,20 @@ const CategoryDrawer: React.FC = () => {
   );
 };
 
-const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
 const MenuContent: React.FC = () => {
+  const { loading, error, data } = useQuery(ALL_PRODUCTS_QUERY);
+
+  if (error) return <Typography variant="subtitle1">Error</Typography>;
+  if (loading) return <CircularProgress />;
+
+  const products = data.products;
+
   return (
     <Grid item container spacing={2} xs={12}>
-      {list.map((category) => {
+      {products.map((product: MenuCardProps) => {
         return (
           <Grid item xs={6} md={4} lg={3}>
-            <MenuCard />
+            <MenuCard {...product} />
           </Grid>
         );
       })}

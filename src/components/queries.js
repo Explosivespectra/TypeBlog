@@ -1,11 +1,13 @@
 import gql from "graphql-tag";
 
 const ALL_PRODUCTS_QUERY = gql`
-  query products {
-    name
-    rarity
-    imgFileName
-    id
+  {
+    products {
+      name
+      rarity
+      imgFileName
+      id
+    }
   }
 `;
 
