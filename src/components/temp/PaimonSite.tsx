@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       [theme.breakpoints.up("lg")]: {
-        paddingLeft: "274px",
+        paddingLeft: "250px",
       },
     },
 
@@ -240,7 +240,8 @@ const MenuContent: React.FC<ContentProps> = ({ products, categories }) => {
     <Grid item container spacing={2} xs={12}>
       {list.map((category) => {
         return (
-          <Grid item xs={6} md={4} lg={3} xl={2}>
+          // <Grid item xxs={6} xs={4} md={3} lg={2}>
+          <Grid item xs={6} sm={4} md={3} lg={2}>
             <MenuCard />
           </Grid>
         );
@@ -255,7 +256,7 @@ const PaimonSite: React.FC<ContentProps> = ({ products, categories = ["All Foods
   return (
     <>
       <CategoryDrawer products={products} categories={categories} />
-      <Container className={classes.content} maxWidth={false}>
+      <div className={classes.content}>
         <PaimonBanner />
         <Hidden mdDown>
           <Toolbar />
@@ -265,7 +266,7 @@ const PaimonSite: React.FC<ContentProps> = ({ products, categories = ["All Foods
           <SelectedItem />
         </Grid>
         <Toolbar />
-      </Container>
+      </div>
     </>
   );
 };
