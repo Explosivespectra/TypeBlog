@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MenuDrawer: React.FC = () => {
+const MenuDrawer: React.FC<{
+  sendRegionName: CallableFunction;
+  sendRestID: CallableFunction;
+}> = ({ sendRegionName, sendRestID }) => {
   const classes = useStyles();
 
   const [openDrawer, setDrawer] = useState<boolean>(false);
@@ -47,8 +50,12 @@ const MenuDrawer: React.FC = () => {
           <Toolbar />
           <MenuDrawerList
             chosenCategory={currentSelected}
-            sendChosen={(ind: number, name: string) => {
+            sendChosenRegion={(ind: number, name: string) => {
               setSelected(ind);
+              sendRegionName(name);
+            }}
+            sendChosenRest={(id: number) => {
+              sendRestID(id);
             }}
           />
         </Drawer>
@@ -73,8 +80,12 @@ const MenuDrawer: React.FC = () => {
           <Toolbar />
           <MenuDrawerList
             chosenCategory={currentSelected}
-            sendChosen={(ind: number, name: string) => {
+            sendChosenRegion={(ind: number, name: string) => {
               setSelected(ind);
+              sendRegionName(name);
+            }}
+            sendChosenRest={(id: number) => {
+              sendRestID(id);
             }}
           />
         </Drawer>

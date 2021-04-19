@@ -48,15 +48,16 @@ module.exports = (app) => {
         });
     },
     productsByRegion: async ({ region }) => {
+      let ret = [];
       return sql
         .promise()
-        .query(`SELECT * FROM products WHERE region = ${region}`)
+        .execute("SELECT * FROM products WHERE region = ?", [region])
         .then(([products, fields]) => {
-          products = products.map((product) => {
+          ret = products.map((product) => {
             return { ...product };
           });
-          console.log(products);
-          return products;
+          console.log(ret);
+          return ret;
         });
     },
     product: async ({ id }) => {

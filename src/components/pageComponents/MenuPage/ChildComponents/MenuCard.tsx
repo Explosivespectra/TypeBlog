@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cardtext: {
       color: "#181729",
       fontFamily: "Genshin",
-      fontSize: "1.5rem",
+      fontSize: "1.25rem",
       lineHeight: "1.5rem",
     },
     cardmediaback: {
@@ -48,12 +48,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type MenuCardProps = {
+export interface MenuCardProps {
   name: string;
   rarity: number;
   imgFileName: string;
   id: number;
-};
+}
 
 const MenuCard: React.FC<MenuCardProps> = ({
   name,

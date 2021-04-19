@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { REGIONS_QUERY } from "../../../queries.js";
+import { MenuDrawerSubList, MenuDrawerSubListProps } from "./MenuDrawerSubList";
 
 import {
   Typography,
   CircularProgress,
+  Collapse,
   List,
   ListItem,
   ListItemIcon,
@@ -21,14 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type DrawerListProps = {
+export interface DrawerListProps {
   chosenCategory: number;
-  sendChosen: CallableFunction;
-};
+  sendChosenRegion: CallableFunction;
+  sendChosenRest: CallableFunction;
+}
 
 const MenuDrawerList: React.FC<DrawerListProps> = ({
   chosenCategory,
-  sendChosen,
+  sendChosenRegion,
+  sendChosenRest,
 }) => {
   const classes = useStyles();
 
@@ -42,30 +47,39 @@ const MenuDrawerList: React.FC<DrawerListProps> = ({
     );
   if (loading) return <CircularProgress />;
 
-  const regions = data.regions;
-
+  const regions = ["All Foods"].concat(data.regions);
   return (
     <List>
       {regions.map((name: string, ind: number) => {
         return (
-          <ListItem
-            key={name}
-            button
-            onClick={() => {
-              sendChosen(ind, name);
-            }}
-          >
-            <ListItemIcon classes={{ root: classes.navcontent }}>
-              <FiberManualRecordIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <Typography variant="subtitle1" className={classes.navcontent}>
-                  {name}
-                </Typography>
-              }
-            />
-          </ListItem>
+          <>
+            <ListItem
+              key={name}
+              button
+              onClick={() => {
+                sendChosenRegion(ind, name);
+              }}
+            >
+              <ListItemIcon classes={{ root: classes.navcontent }}>
+                <FiberManualRecordIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography className={classes.navcontent}>{name}</Typography>
+                }
+              />
+            </ListItem>
+            {name !== "All Foods" && (
+              <Collapse in={chosenCategory === ind}>
+                <MenuDrawerSubList
+                  region={name}
+                  sendChosenRest={(id: number) => {
+                    sendChosenRest(id);
+                  }}
+                />
+              </Collapse>
+            )}
+          </>
         );
       })}
     </List>

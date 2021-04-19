@@ -7,24 +7,40 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       [theme.breakpoints.up("lg")]: {
-        paddingLeft: "274px",
+        paddingLeft: "250px",
       },
     },
   })
 );
 
+export interface RegionRestParameters {
+  region: string;
+  rest: number | null;
+}
+
 const MenuPage: React.FC = () => {
   const classes = useStyles();
-  const [chosenRegion, setRegion] = useState<string>("All");
+  const [chosenRegionRest, setRegionRest] = useState<RegionRestParameters>({
+    region: "All Foods",
+    rest: null,
+  });
+
   return (
     <>
-      <MenuDrawer />
+      <MenuDrawer
+        sendRegionName={(name: string) => {
+          setRegionRest({ region: name, rest: null });
+        }}
+        sendRestID={(id: number) => {
+          setRegionRest({ region: chosenRegionRest.region, rest: id });
+        }}
+      />
       <Container className={classes.content} maxWidth={false}>
         <Hidden mdDown>
           <Toolbar />
         </Hidden>
         <Grid container justify="center">
-          <MenuContent />
+          <MenuContent {...chosenRegionRest} />
         </Grid>
         <Toolbar />
       </Container>

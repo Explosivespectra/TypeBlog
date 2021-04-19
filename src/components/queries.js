@@ -1,7 +1,7 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const ALL_PRODUCTS_QUERY = gql`
-  {
+  query products {
     products {
       name
       rarity
@@ -13,29 +13,35 @@ const ALL_PRODUCTS_QUERY = gql`
 
 const PRODUCTS_BY_REGION_QUERY = gql`
   query productsByRegion($region: String!) {
-    name
-    rarity
-    imgFileName
-    id
+    productsByRegion(region: $region) {
+      name
+      rarity
+      imgFileName
+      id
+    }
   }
 `;
 
 const RESTAURANTS_FOR_REGION_QUERY = gql`
   query restaurantsByRegion($region: String!) {
-    name
-    id
+    restaurantsByRegion(region: $region) {
+      name
+      id
+    }
   }
 `;
 
 const RESTAURANT_AND_PRODUCTS_QUERY = gql`
-  query restaurant($id: Int!) {
-    name
-    description
-    products {
+  query restaurantAndProductsQuery($id: Int!) {
+    restaurant(id: $id) {
       name
-      rarity
-      imgFileName
-      id
+      description
+      products {
+        name
+        rarity
+        imgFileName
+        id
+      }
     }
   }
 `;
@@ -48,12 +54,14 @@ const REGIONS_QUERY = gql`
 
 const PRODUCT_DETAIL_QUERY = gql`
   query product($id: Int!) {
-    id
-    name
-    description
-    cost
-    rarity
-    imgFileName
+    product(id: $id) {
+      id
+      name
+      description
+      cost
+      rarity
+      imgFileName
+    }
   }
 `;
 export {
