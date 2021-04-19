@@ -3,6 +3,8 @@ import { MenuContent } from "./ChildComponents/MenuContent";
 import { MenuDrawer } from "./ChildComponents/MenuDrawer";
 import { Grid, Toolbar, Hidden, Container } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import RestaurantBanner from "./ChildComponents/RestaurantBanner"
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
@@ -35,15 +37,13 @@ const MenuPage: React.FC = () => {
           setRegionRest({ region: chosenRegionRest.region, rest: id });
         }}
       />
-      <Container className={classes.content} maxWidth={false}>
-        <Hidden mdDown>
-          <Toolbar />
-        </Hidden>
+      <div className={classes.content}>
+        <RestaurantBanner region={chosenRegionRest.region} />
         <Grid container justify="center">
           <MenuContent {...chosenRegionRest} />
         </Grid>
         <Toolbar />
-      </Container>
+      </div>
     </>
   );
 };

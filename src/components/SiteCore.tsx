@@ -25,8 +25,6 @@ import { ContactPage } from "./pageComponents/ContactPage/ContactPage";
 import { Footer } from "./SiteCoreChildren/Footer";
 import productData from "../mockData/products.json";
 
-import PaimonSite from "./temp/PaimonSite";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appbar: {
@@ -203,7 +201,6 @@ const SiteCore: React.FC = () => {
             </div>
           )}
         />
-        <Route path="/temp-paimon" component={PaimonSite} />
       </Switch>
       <Footer />
     </>

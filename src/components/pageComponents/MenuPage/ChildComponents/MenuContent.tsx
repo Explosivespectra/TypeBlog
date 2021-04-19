@@ -37,8 +37,8 @@ const MenuContent: React.FC<RegionRestParameters> = ({ region, rest }) => {
     region === "All Foods"
       ? data.products
       : rest === null
-      ? data.productsByRegion
-      : data.restaurant.products;
+        ? data.productsByRegion
+        : data.restaurant.products;
   return (
     <Grid item container spacing={2} xs={12}>
       {products.map((product: MenuCardProps) => {

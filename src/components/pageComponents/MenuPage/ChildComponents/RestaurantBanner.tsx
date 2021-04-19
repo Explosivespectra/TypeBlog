@@ -1,21 +1,9 @@
 import { makeStyles, createStyles, Theme, Typography } from "@material-ui/core";
-import myImg from "./assets/GoodHunter (11).png";
-import myImg2 from "./assets/Paimon.png";
+import myImg from "../../../../assets/GoodHunter (11).png";
+import myImg2 from "../../../../assets/Paimon.png";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // content: {
-    //   [theme.breakpoints.up("lg")]: {
-    //     paddingLeft: "250px",
-    //   },
-    // },
-    // menuNav: {
-    //   width: "250px",
-    //   "&::before": {
-    //     position: "absolute",
-    //   },
-    // },
-
     bannerWrap: {
       position: "relative",
       display: "flex",
@@ -93,15 +81,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PaimonBanner: React.FC = () => {
+interface RestaurantBannerProps {
+  region: string;
+}
+
+const RestaurantBanner: React.FC<RestaurantBannerProps> = ({ region }) => {
   const classes = useStyles();
 
-  return <section>
+  return <section id="temp note">
     <div className={classes.bannerWrap}>
       <div className={classes.background}></div>
       <div className={classes.contentWrap}>
         <div className={classes.restrauntInfoWrap}>
-          <Typography variant="h1" className={classes.restrauntName}>Good Hunter</Typography>
+          <Typography variant="h1" className={classes.restrauntName}>{region}</Typography>
           <div className={classes.restrauntDesc}>
             We are the Good Hunt and we do good hunting to make that good food. We also make fisherman toast that Paimons likes
           </div>
@@ -114,4 +106,4 @@ const PaimonBanner: React.FC = () => {
   </section>
 }
 
-export default PaimonBanner;
+export default RestaurantBanner;
