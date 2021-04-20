@@ -6,6 +6,7 @@ import {
 } from "../../../queries.js";
 
 import { MenuCard, MenuCardProps } from "./MenuCard";
+import RestaurantBanner from "./RestaurantBanner";
 import { Typography, Grid, CircularProgress } from "@material-ui/core";
 import { RegionRestParameters } from "../MenuPage";
 
@@ -37,18 +38,33 @@ const MenuContent: React.FC<RegionRestParameters> = ({ region, rest }) => {
     region === "All Foods"
       ? data.products
       : rest === null
-        ? data.productsByRegion
-        : data.restaurant.products;
+      ? data.productsByRegion
+      : data.restaurant.products;
+  const bannerInfo = {
+    region: region,
+    restaurant:
+      rest === null
+        ? null
+        : {
+            name: data.restaurant.name,
+            description: data.restaurant.description,
+          },
+  };
   return (
-    <Grid item container spacing={2} xs={12}>
-      {products.map((product: MenuCardProps) => {
-        return (
-          <Grid item xs={6} sm={4} md={3} lg={2}>
-            <MenuCard {...product} />
-          </Grid>
-        );
-      })}
-    </Grid>
+    <>
+      <RestaurantBanner {...bannerInfo} />
+      <Grid container justify="center">
+        <Grid item container spacing={2} xs={12}>
+          {products.map((product: MenuCardProps) => {
+            return (
+              <Grid item xs={6} sm={4} md={3} lg={2}>
+                <MenuCard {...product} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

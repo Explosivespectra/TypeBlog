@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: "-16rem",
       [theme.breakpoints.up("md")]: {
         marginBottom: "-14rem",
-      }
+      },
     },
     background: {
       position: "absolute",
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundImage: `url('${myImg}')`,
       backgroundSize: "cover",
       backgroundPosition: "center",
-      WebkitMaskImage: "-webkit-linear-gradient(top, rgba(0,0,0,1) 65%, rgba(0,0,0,0))",
+      WebkitMaskImage:
+        "-webkit-linear-gradient(top, rgba(0,0,0,1) 65%, rgba(0,0,0,0))",
     },
     contentWrap: {
       position: "relative",
@@ -81,29 +82,45 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface RestaurantInfo {
+  name: string;
+  description: string;
+}
+
 interface RestaurantBannerProps {
   region: string;
+  restaurant: RestaurantInfo | null;
 }
 
-const RestaurantBanner: React.FC<RestaurantBannerProps> = ({ region }) => {
+const RestaurantBanner: React.FC<RestaurantBannerProps> = ({
+  region,
+  restaurant,
+}) => {
   const classes = useStyles();
-
-  return <section id="temp note">
-    <div className={classes.bannerWrap}>
-      <div className={classes.background}></div>
-      <div className={classes.contentWrap}>
-        <div className={classes.restrauntInfoWrap}>
-          <Typography variant="h1" className={classes.restrauntName}>{region}</Typography>
-          <div className={classes.restrauntDesc}>
-            We are the Good Hunt and we do good hunting to make that good food. We also make fisherman toast that Paimons likes
+  const placeHolderPaimons =
+    "We are the Good Hunt and we do good hunting to make that good food. We also make fisherman toast that Paimons likes";
+  return (
+    <section id="temp note">
+      <div className={classes.bannerWrap}>
+        <div className={classes.background}></div>
+        <div className={classes.contentWrap}>
+          <div className={classes.restrauntInfoWrap}>
+            <Typography variant="h1" className={classes.restrauntName}>
+              {restaurant !== null ? restaurant.name : region}
+            </Typography>
+            <div className={classes.restrauntDesc}>
+              {restaurant !== null
+                ? restaurant.description
+                : placeHolderPaimons}
+            </div>
+          </div>
+          <div className={classes.charaPicWrap}>
+            <img src={myImg2} />
           </div>
         </div>
-        <div className={classes.charaPicWrap}>
-          <img src={myImg2} />
-        </div>
       </div>
-    </div>
-  </section>
-}
+    </section>
+  );
+};
 
 export default RestaurantBanner;
