@@ -36,11 +36,23 @@ const useStyles = makeStyles((theme: Theme) =>
     appbar: {
       zIndex: theme.zIndex.drawer + 1,
     },
-    title: {
+    logoWrap: {
+      color: "inherit",
+      textDecoration: "none",
       marginRight: theme.spacing(4),
       fontFamily: "Genshin",
-      textDecoration: "none",
-      position: "relative",
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    appbarLinksWrapper: {
+      position: "absolute",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "stretch",
+      top: 0,
+      right: "24px",
+      bottom: 0,
     },
     appbarlink: {
       paddingLeft: "1.5rem",
@@ -115,110 +127,88 @@ const SiteCore: React.FC = () => {
     <>
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar>
-          <Container
-            maxWidth={false}
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-            }}
+          <Typography
+            variant={"h3"}
+            className={classes.logoWrap}
+            component={Link}
+            to={"/"}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "stretch",
-                height: "100%",
-              }}
-            >
-              <Typography
-                variant={"h3"}
+            FoT
+          </Typography>
+          <div className={classes.grow} />
+          <Hidden smDown>
+            <div className={classes.appbarLinksWrapper}>
+              {simpleNavButtonGridItem("/", "Home")}
+              <ButtonBase
+                className={classes.appbarlink}
                 color="inherit"
-                className={classes.title}
                 component={Link}
-                to={"/"}
+                to="/menu"
+                onMouseOver={(
+                  event: React.MouseEvent<HTMLElement, MouseEvent>
+                ) => {
+                  if (menuLoc !== event.currentTarget) {
+                    setMenu(event.currentTarget);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setMenu(null);
+                }}
+                onClick={() => {
+                  setInitialMenuQuery({ region: "All Foods", rest: null });
+                }}
               >
-                FoT
-              </Typography>
-              <Hidden smDown>
-                {simpleNavButtonGridItem("/", "Home")}
-                <ButtonBase
-                  className={classes.appbarlink}
-                  color="inherit"
-                  component={Link}
-                  to="/menu"
-                  onMouseOver={(
-                    event: React.MouseEvent<HTMLElement, MouseEvent>
-                  ) => {
-                    if (menuLoc !== event.currentTarget) {
-                      setMenu(event.currentTarget);
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    setMenu(null);
-                  }}
-                  onClick={() => {
-                    setInitialMenuQuery({ region: "All Foods", rest: null });
-                  }}
-                >
-                  Menu
+                Menu
                   <Popper
-                    className={classes.popper}
-                    keepMounted
-                    open={Boolean(menuLoc)}
-                    anchorEl={menuLoc}
-                    placement="bottom"
-                  >
-                    <Paper className={classes.popperpaper}>
-                      <AppBarMenuList
-                        sendRegion={(region: string) => {
-                          setInitialMenuQuery({ region: region, rest: null });
-                        }}
-                      />
-                    </Paper>
-                  </Popper>
-                </ButtonBase>
-                {simpleNavButtonGridItem("/online-order", "Online Order")}
-                {simpleNavButtonGridItem("/about-us", "About Us")}
-                {simpleNavButtonGridItem("/contact-us", "Contact Us")}
-              </Hidden>
-              <Hidden mdUp>
-                <IconButton
-                  color="inherit"
-                  onClick={() => {
-                    setExpanded(true);
-                  }}
+                  className={classes.popper}
+                  keepMounted
+                  open={Boolean(menuLoc)}
+                  anchorEl={menuLoc}
+                  placement="bottom"
                 >
-                  <MenuIcon />
-                </IconButton>
-                <Drawer
-                  open={expanded}
-                  anchor="top"
-                  onClose={() => {
-                    setExpanded(false);
-                  }}
-                >
-                  <List>
-                    <ListItem>{simpleNavButtonGridItem("/", "Home")}</ListItem>
-                    <ListItem>
-                      {simpleNavButtonGridItem("/menu", "Menu")}
-                    </ListItem>
-                    <ListItem>
-                      {simpleNavButtonGridItem("/online-order", "Online Order")}
-                    </ListItem>
-                    <ListItem>
-                      {simpleNavButtonGridItem("/about-us", "About Us")}
-                    </ListItem>
-                    <ListItem>
-                      {simpleNavButtonGridItem("/contact-us", "Contact Us")}
-                    </ListItem>
-                  </List>
-                </Drawer>
-              </Hidden>
+                  <Paper className={classes.popperpaper}>
+                    <AppBarMenuList
+                      sendRegion={(region: string) => {
+                        setInitialMenuQuery({ region: region, rest: null });
+                      }}
+                    />
+                  </Paper>
+                </Popper>
+              </ButtonBase>
+              {simpleNavButtonGridItem("/online-order", "Online Order")}
+              {simpleNavButtonGridItem("/about-us", "About Us")}
+              {simpleNavButtonGridItem("/contact-us", "Contact Us")}
             </div>
-          </Container>
+          </Hidden>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              onClick={() => setExpanded(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              open={expanded}
+              anchor="top"
+              onClose={() => setExpanded(false)}
+            >
+              <List>
+                <ListItem>{simpleNavButtonGridItem("/", "Home")}</ListItem>
+                <ListItem>
+                  {simpleNavButtonGridItem("/menu", "Menu")}
+                </ListItem>
+                <ListItem>
+                  {simpleNavButtonGridItem("/online-order", "Online Order")}
+                </ListItem>
+                <ListItem>
+                  {simpleNavButtonGridItem("/about-us", "About Us")}
+                </ListItem>
+                <ListItem>
+                  {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+                </ListItem>
+              </List>
+            </Drawer>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <Toolbar />
