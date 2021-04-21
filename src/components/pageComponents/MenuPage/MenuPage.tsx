@@ -20,13 +20,13 @@ export interface RegionRestParameters {
   rest: number | null;
 }
 
-const MenuPage: React.FC = () => {
+const MenuPage: React.FC<RegionRestParameters> = ({ region, rest }) => {
   const classes = useStyles();
   const [chosenRegionRest, setRegionRest] = useState<RegionRestParameters>({
-    region: "All Foods",
-    rest: null,
+    region: region,
+    rest: rest,
   });
-
+  console.log(chosenRegionRest);
   return (
     <>
       <MenuDrawer
@@ -36,6 +36,7 @@ const MenuPage: React.FC = () => {
         sendRestID={(id: number) => {
           setRegionRest({ region: chosenRegionRest.region, rest: id });
         }}
+        chosenRegion={region}
       />
       <div className={classes.content}>
         <MenuContent {...chosenRegionRest} />

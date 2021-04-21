@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, withRouter } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { REGIONS_QUERY } from "./queries";
 import {
   Container,
   AppBar,
@@ -14,11 +16,15 @@ import {
   Typography,
   Paper,
   ButtonBase,
+  CircularProgress,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { HomePage } from "./pageComponents/HomePage/HomePage";
-import { MenuPage } from "./pageComponents/MenuPage/MenuPage";
+import {
+  MenuPage,
+  RegionRestParameters,
+} from "./pageComponents/MenuPage/MenuPage";
 import { OrderPage } from "./pageComponents/OrderPage/OrderPage";
 import { AboutPage } from "./pageComponents/AboutPage/AboutPage";
 import { ContactPage } from "./pageComponents/ContactPage/ContactPage";
@@ -54,10 +60,47 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const AppBarMenuList: React.FC<{ sendRegion: CallableFunction }> = ({
+  sendRegion,
+}) => {
+  const classes = useStyles();
+
+  const { loading, error, data } = useQuery(REGIONS_QUERY);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+  if (error) {
+    return <Typography variant="subtitle1">Error</Typography>;
+  }
+  return (
+    <>
+      {data.regions.map((category: string) => {
+        return (
+          <MenuItem
+            key={category}
+            button
+            onClick={(e) => {
+              e.stopPropagation();
+              sendRegion(category);
+            }}
+          >
+            <div className={classes.navtext}>{category}</div>
+          </MenuItem>
+        );
+      })}
+    </>
+  );
+};
+
 const SiteCore: React.FC = () => {
   const [menuLoc, setMenu] = useState<HTMLElement | null>(null);
   const [expanded, setExpanded] = useState<boolean>(false);
-
+  const [
+    initialMenuQuery,
+    setInitialMenuQuery,
+  ] = useState<RegionRestParameters>({ region: "All Foods", rest: null });
+  console.log(initialMenuQuery);
   const classes = useStyles();
 
   const simpleNavButtonGridItem = (linkTo: string, text: string) => {
@@ -116,6 +159,9 @@ const SiteCore: React.FC = () => {
                   onMouseLeave={() => {
                     setMenu(null);
                   }}
+                  onClick={() => {
+                    setInitialMenuQuery({ region: "All Foods", rest: null });
+                  }}
                 >
                   Menu
                   <Popper
@@ -126,13 +172,11 @@ const SiteCore: React.FC = () => {
                     placement="bottom"
                   >
                     <Paper className={classes.popperpaper}>
-                      {productData.categories.map((category) => {
-                        return (
-                          <MenuItem key={category}>
-                            <div className={classes.navtext}>{category}</div>
-                          </MenuItem>
-                        );
-                      })}
+                      <AppBarMenuList
+                        sendRegion={(region: string) => {
+                          setInitialMenuQuery({ region: region, rest: null });
+                        }}
+                      />
                     </Paper>
                   </Popper>
                 </ButtonBase>
@@ -179,17 +223,22 @@ const SiteCore: React.FC = () => {
       </AppBar>
       <Toolbar />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
         <Route
           path="/menu"
-          render={() => (
-            <MenuPage
-            />
-          )}
+          component={() => <MenuPage {...initialMenuQuery} />}
         />
-        <Route path="/online-order" component={OrderPage} />
-        <Route path="/about-us" component={AboutPage} />
-        <Route path="/contact-us" component={ContactPage} />
+        <Route path="/online-order">
+          <OrderPage />
+        </Route>
+        <Route path="/about-us" component={AboutPage}>
+          <AboutPage />
+        </Route>
+        <Route path="/contact-us" component={ContactPage}>
+          <ContactPage />
+        </Route>
         <Route
           path="/lezgo-chingling-bby"
           component={() => (

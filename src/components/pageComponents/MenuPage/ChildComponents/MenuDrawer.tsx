@@ -31,11 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const MenuDrawer: React.FC<{
   sendRegionName: CallableFunction;
   sendRestID: CallableFunction;
-}> = ({ sendRegionName, sendRestID }) => {
+  chosenRegion: string;
+}> = ({ sendRegionName, sendRestID, chosenRegion }) => {
   const classes = useStyles();
 
   const [openDrawer, setDrawer] = useState<boolean>(false);
-  const [currentSelected, setSelected] = useState<number>(0);
+  const [currentSelected, setSelected] = useState<string>(chosenRegion);
   return (
     <>
       <Hidden lgUp>
@@ -50,8 +51,8 @@ const MenuDrawer: React.FC<{
           <Toolbar />
           <MenuDrawerList
             chosenCategory={currentSelected}
-            sendChosenRegion={(ind: number, name: string) => {
-              setSelected(ind);
+            sendChosenRegion={(name: string) => {
+              setSelected(name);
               sendRegionName(name);
             }}
             sendChosenRest={(id: number) => {
@@ -80,8 +81,8 @@ const MenuDrawer: React.FC<{
           <Toolbar />
           <MenuDrawerList
             chosenCategory={currentSelected}
-            sendChosenRegion={(ind: number, name: string) => {
-              setSelected(ind);
+            sendChosenRegion={(name: string) => {
+              setSelected(name);
               sendRegionName(name);
             }}
             sendChosenRest={(id: number) => {

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface DrawerListProps {
-  chosenCategory: number;
+  chosenCategory: string;
   sendChosenRegion: CallableFunction;
   sendChosenRest: CallableFunction;
 }
@@ -50,14 +50,14 @@ const MenuDrawerList: React.FC<DrawerListProps> = ({
   const regions = ["All Foods"].concat(data.regions);
   return (
     <List>
-      {regions.map((name: string, ind: number) => {
+      {regions.map((name: string) => {
         return (
           <>
             <ListItem
               key={name}
               button
               onClick={() => {
-                sendChosenRegion(ind, name);
+                sendChosenRegion(name);
               }}
             >
               <ListItemIcon classes={{ root: classes.navcontent }}>
@@ -70,7 +70,7 @@ const MenuDrawerList: React.FC<DrawerListProps> = ({
               />
             </ListItem>
             {name !== "All Foods" && (
-              <Collapse in={chosenCategory === ind}>
+              <Collapse in={chosenCategory === name}>
                 <MenuDrawerSubList
                   region={name}
                   sendChosenRest={(id: number) => {
