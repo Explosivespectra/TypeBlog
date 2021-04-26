@@ -4,30 +4,31 @@ import {
   PRODUCTS_BY_REGION_QUERY,
   RESTAURANT_AND_PRODUCTS_QUERY,
 } from "../../../queries.js";
-
+import { useLocation } from "react-router-dom";
 import { MenuCard, MenuCardProps } from "./MenuCard";
 import RestaurantBanner from "./RestaurantBanner";
 import { Typography, Grid, CircularProgress } from "@material-ui/core";
-import { RegionRestParameters } from "../MenuPage";
 
-const generateQueryParameters = (regionName: string, restID: number | null) => {
-  if (regionName !== "All Foods") {
-    if (restID !== null) {
+const generateQueryParameters = (nav: string[]) => {
+  switch (nav.length) {
+    case 2:
+      return { query: ALL_PRODUCTS_QUERY, variables: {} };
+    case 3:
       return {
-        query: RESTAURANT_AND_PRODUCTS_QUERY,
-        variables: { id: restID },
+        query: PRODUCTS_BY_REGION_QUERY,
+        variables: { region: nav[2] },
       };
-    }
-    return {
-      query: PRODUCTS_BY_REGION_QUERY,
-      variables: { region: regionName },
-    };
   }
-  return { query: ALL_PRODUCTS_QUERY, variables: {} };
+  return {
+    query: RESTAURANT_AND_PRODUCTS_QUERY,
+    variables: { id: parseInt(nav[3]) },
+  };
 };
 
-const MenuContent: React.FC<RegionRestParameters> = ({ region, rest }) => {
-  const queryParameters = generateQueryParameters(region, rest);
+const MenuContent: React.FC = () => {
+  const location = useLocation();
+  const pathVals = location.pathname.split(`/`);
+  const queryParameters = generateQueryParameters(pathVals);
   const { loading, error, data } = useQuery(queryParameters.query, {
     variables: queryParameters.variables,
   });
@@ -35,15 +36,15 @@ const MenuContent: React.FC<RegionRestParameters> = ({ region, rest }) => {
   if (error) return <Typography variant="subtitle1">Error</Typography>;
   if (loading) return <CircularProgress />;
   const products =
-    region === "All Foods"
+    pathVals.length === 2
       ? data.products
-      : rest === null
+      : pathVals.length === 3
       ? data.productsByRegion
       : data.restaurant.products;
   const bannerInfo = {
-    region: region,
+    region: pathVals.length <= 2 ? "All Foods" : pathVals[2],
     restaurant:
-      rest === null
+      pathVals.length <= 3
         ? null
         : {
             name: data.restaurant.name,

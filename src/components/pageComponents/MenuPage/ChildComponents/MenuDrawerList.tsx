@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
+import { Link, useLocation } from "react-router-dom";
 import { REGIONS_QUERY } from "../../../queries.js";
-import { MenuDrawerSubList, MenuDrawerSubListProps } from "./MenuDrawerSubList";
+import { MenuDrawerSubList } from "./MenuDrawerSubList";
 
 import {
   Typography,
@@ -24,18 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export interface DrawerListProps {
-  chosenCategory: string;
-  sendChosenRegion: CallableFunction;
-  sendChosenRest: CallableFunction;
-}
-
-const MenuDrawerList: React.FC<DrawerListProps> = ({
-  chosenCategory,
-  sendChosenRegion,
-  sendChosenRest,
-}) => {
+const MenuDrawerList: React.FC = ({}) => {
   const classes = useStyles();
+
+  const location = useLocation();
+
+  const pathVals = location.pathname.split(`/`);
 
   const { loading, error, data } = useQuery(REGIONS_QUERY);
 
@@ -55,10 +49,8 @@ const MenuDrawerList: React.FC<DrawerListProps> = ({
           <>
             <ListItem
               key={name}
-              button
-              onClick={() => {
-                sendChosenRegion(name);
-              }}
+              component={Link}
+              to={`/menu${name === "All Foods" ? "" : `/${name}`}`}
             >
               <ListItemIcon classes={{ root: classes.navcontent }}>
                 <FiberManualRecordIcon />
@@ -70,13 +62,8 @@ const MenuDrawerList: React.FC<DrawerListProps> = ({
               />
             </ListItem>
             {name !== "All Foods" && (
-              <Collapse in={chosenCategory === name}>
-                <MenuDrawerSubList
-                  region={name}
-                  sendChosenRest={(id: number) => {
-                    sendChosenRest(id);
-                  }}
-                />
+              <Collapse in={pathVals.length > 2 && pathVals[2] === name}>
+                <MenuDrawerSubList region={name} />
               </Collapse>
             )}
           </>

@@ -29,7 +29,6 @@ import { OrderPage } from "./pageComponents/OrderPage/OrderPage";
 import { AboutPage } from "./pageComponents/AboutPage/AboutPage";
 import { ContactPage } from "./pageComponents/ContactPage/ContactPage";
 import { Footer } from "./SiteCoreChildren/Footer";
-import productData from "../mockData/products.json";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,9 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AppBarMenuList: React.FC<{ sendRegion: CallableFunction }> = ({
-  sendRegion,
-}) => {
+const AppBarMenuList: React.FC = () => {
   const classes = useStyles();
 
   const { loading, error, data } = useQuery(REGIONS_QUERY);
@@ -92,10 +89,8 @@ const AppBarMenuList: React.FC<{ sendRegion: CallableFunction }> = ({
           <MenuItem
             key={category}
             button
-            onClick={(e) => {
-              e.stopPropagation();
-              sendRegion(category);
-            }}
+            component={Link}
+            to={`/menu/${category}`}
           >
             <div className={classes.navtext}>{category}</div>
           </MenuItem>
@@ -108,11 +103,7 @@ const AppBarMenuList: React.FC<{ sendRegion: CallableFunction }> = ({
 const SiteCore: React.FC = () => {
   const [menuLoc, setMenu] = useState<HTMLElement | null>(null);
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [
-    initialMenuQuery,
-    setInitialMenuQuery,
-  ] = useState<RegionRestParameters>({ region: "All Foods", rest: null });
-  console.log(initialMenuQuery);
+
   const classes = useStyles();
 
   const simpleNavButtonGridItem = (linkTo: string, text: string) => {
@@ -154,12 +145,9 @@ const SiteCore: React.FC = () => {
                 onMouseLeave={() => {
                   setMenu(null);
                 }}
-                onClick={() => {
-                  setInitialMenuQuery({ region: "All Foods", rest: null });
-                }}
               >
                 Menu
-                  <Popper
+                <Popper
                   className={classes.popper}
                   keepMounted
                   open={Boolean(menuLoc)}
@@ -167,11 +155,7 @@ const SiteCore: React.FC = () => {
                   placement="bottom"
                 >
                   <Paper className={classes.popperpaper}>
-                    <AppBarMenuList
-                      sendRegion={(region: string) => {
-                        setInitialMenuQuery({ region: region, rest: null });
-                      }}
-                    />
+                    <AppBarMenuList />
                   </Paper>
                 </Popper>
               </ButtonBase>
@@ -181,10 +165,7 @@ const SiteCore: React.FC = () => {
             </div>
           </Hidden>
           <Hidden mdUp>
-            <IconButton
-              color="inherit"
-              onClick={() => setExpanded(true)}
-            >
+            <IconButton color="inherit" onClick={() => setExpanded(true)}>
               <MenuIcon />
             </IconButton>
             <Drawer
@@ -194,9 +175,7 @@ const SiteCore: React.FC = () => {
             >
               <List>
                 <ListItem>{simpleNavButtonGridItem("/", "Home")}</ListItem>
-                <ListItem>
-                  {simpleNavButtonGridItem("/menu", "Menu")}
-                </ListItem>
+                <ListItem>{simpleNavButtonGridItem("/menu", "Menu")}</ListItem>
                 <ListItem>
                   {simpleNavButtonGridItem("/online-order", "Online Order")}
                 </ListItem>
@@ -216,17 +195,16 @@ const SiteCore: React.FC = () => {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route
-          path="/menu"
-          component={() => <MenuPage {...initialMenuQuery} />}
-        />
+        <Route path="/menu">
+          <MenuPage />
+        </Route>
         <Route path="/online-order">
           <OrderPage />
         </Route>
-        <Route path="/about-us" component={AboutPage}>
+        <Route path="/about-us">
           <AboutPage />
         </Route>
-        <Route path="/contact-us" component={ContactPage}>
+        <Route path="/contact-us">
           <ContactPage />
         </Route>
         <Route

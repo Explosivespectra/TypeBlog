@@ -6,7 +6,8 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
+import { addToCart } from "../../../features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuCard: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cardtext: {
       color: "#181729",
       fontFamily: "Genshin",
-      fontSize: "1.25rem",
+      fontSize: "calc(.55rem + .45vw)",
       lineHeight: "1.5rem",
     },
     cardmediaback: {
@@ -61,13 +62,19 @@ const MenuCard: React.FC<MenuCardProps> = ({
   imgFileName,
   id,
 }) => {
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   return (
     <Card className={classes.menuCard}>
-      <CardActionArea onClick={() => {}}>
+      <CardActionArea
+        onClick={() => {
+          dispatch(addToCart({ name: name, id: id }));
+        }}
+      >
         <CardMedia className={classes.cardmediaback}>
           <img
-            src={`foodAssets/${imgFileName}`}
+            src={`${process.env.PUBLIC_URL}/foodAssets/${imgFileName}`}
             className={classes.cardmediasrc}
           ></img>
         </CardMedia>

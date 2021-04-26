@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { RESTAURANTS_FOR_REGION_QUERY } from "../../../queries.js";
 
 import {
@@ -23,13 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface MenuDrawerSubListProps {
   region: string;
-  sendChosenRest: CallableFunction;
 }
 
-const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({
-  region,
-  sendChosenRest,
-}) => {
+const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({ region }) => {
   const { loading, error, data } = useQuery(RESTAURANTS_FOR_REGION_QUERY, {
     variables: { region: region },
   });
@@ -45,10 +42,8 @@ const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({
         return (
           <ListItem
             key={restaurant.name}
-            button
-            onClick={() => {
-              sendChosenRest(restaurant.id);
-            }}
+            component={Link}
+            to={`/menu/${region}/${restaurant.id}`}
           >
             <ListItemIcon classes={{ root: classes.navcontent }}>
               <FiberManualRecordIcon />
