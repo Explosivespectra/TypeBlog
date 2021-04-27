@@ -47,6 +47,7 @@ const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({ region }) => {
       {restaurants.map((restaurant: { name: string; id: number }) => {
         return (
           <ListItem
+            button
             key={restaurant.name}
             component={Link}
             to={`/menu/${region}/${restaurant.id}`}

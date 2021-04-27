@@ -4,5 +4,5 @@ export const checkLocation = (
   name: string,
   pos: number
 ) => {
-  if (path.length > pos && path[pos] === name) event.preventDefault();
+  if (path.length === pos + 1 && path[pos] === name) event.preventDefault();
 };

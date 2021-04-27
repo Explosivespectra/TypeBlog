@@ -16,7 +16,6 @@ import {
 } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { PointerEvent } from "react";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     navcontent: {
@@ -51,6 +50,7 @@ const MenuDrawerList: React.FC = ({}) => {
         return (
           <>
             <ListItem
+              button
               key={name}
               component={Link}
               to={`/menu${name === "All Foods" ? "" : `/${name}`}`}
