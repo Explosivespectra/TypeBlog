@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { REGIONS_QUERY } from "./queries";
 import {
-  Container,
   AppBar,
   IconButton,
   Hidden,
@@ -21,14 +20,12 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { HomePage } from "./pageComponents/HomePage/HomePage";
-import {
-  MenuPage,
-  RegionRestParameters,
-} from "./pageComponents/MenuPage/MenuPage";
+import { MenuPage } from "./pageComponents/MenuPage/MenuPage";
 import { OrderPage } from "./pageComponents/OrderPage/OrderPage";
 import { AboutPage } from "./pageComponents/AboutPage/AboutPage";
 import { ContactPage } from "./pageComponents/ContactPage/ContactPage";
 import { Footer } from "./SiteCoreChildren/Footer";
+import { checkLocation } from "./HelperFunctions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,6 +71,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const AppBarMenuList: React.FC = () => {
   const classes = useStyles();
 
+  const location = useLocation();
+
+  const pathVals = location.pathname.split(`/`);
+
   const { loading, error, data } = useQuery(REGIONS_QUERY);
 
   if (loading) {
@@ -91,6 +92,10 @@ const AppBarMenuList: React.FC = () => {
             button
             component={Link}
             to={`/menu/${category}`}
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              event.stopPropagation();
+              checkLocation(event, pathVals, category, 2);
+            }}
           >
             <div className={classes.navtext}>{category}</div>
           </MenuItem>
@@ -104,11 +109,21 @@ const SiteCore: React.FC = () => {
   const [menuLoc, setMenu] = useState<HTMLElement | null>(null);
   const [expanded, setExpanded] = useState<boolean>(false);
 
+  const location = useLocation();
+  const pathVals = location.pathname.split(`/`);
+
   const classes = useStyles();
 
   const simpleNavButtonGridItem = (linkTo: string, text: string) => {
     return (
-      <ButtonBase className={classes.appbarlink} component={Link} to={linkTo}>
+      <ButtonBase
+        className={classes.appbarlink}
+        component={Link}
+        to={`/${linkTo}`}
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
+          checkLocation(event, pathVals, linkTo, 1);
+        }}
+      >
         {text}
       </ButtonBase>
     );
@@ -129,7 +144,7 @@ const SiteCore: React.FC = () => {
           <div className={classes.grow} />
           <Hidden smDown>
             <div className={classes.appbarLinksWrapper}>
-              {simpleNavButtonGridItem("/", "Home")}
+              {simpleNavButtonGridItem("", "Home")}
               <ButtonBase
                 className={classes.appbarlink}
                 color="inherit"
@@ -145,6 +160,9 @@ const SiteCore: React.FC = () => {
                 onMouseLeave={() => {
                   setMenu(null);
                 }}
+                onClick={(event: React.MouseEvent<HTMLElement>) => {
+                  checkLocation(event, pathVals, "menu", 1);
+                }}
               >
                 Menu
                 <Popper
@@ -159,9 +177,9 @@ const SiteCore: React.FC = () => {
                   </Paper>
                 </Popper>
               </ButtonBase>
-              {simpleNavButtonGridItem("/online-order", "Online Order")}
-              {simpleNavButtonGridItem("/about-us", "About Us")}
-              {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+              {simpleNavButtonGridItem("online-order", "Online Order")}
+              {simpleNavButtonGridItem("about-us", "About Us")}
+              {simpleNavButtonGridItem("contact-us", "Contact Us")}
             </div>
           </Hidden>
           <Hidden mdUp>
@@ -174,16 +192,16 @@ const SiteCore: React.FC = () => {
               onClose={() => setExpanded(false)}
             >
               <List>
-                <ListItem>{simpleNavButtonGridItem("/", "Home")}</ListItem>
-                <ListItem>{simpleNavButtonGridItem("/menu", "Menu")}</ListItem>
+                <ListItem>{simpleNavButtonGridItem("", "Home")}</ListItem>
+                <ListItem>{simpleNavButtonGridItem("menu", "Menu")}</ListItem>
                 <ListItem>
-                  {simpleNavButtonGridItem("/online-order", "Online Order")}
+                  {simpleNavButtonGridItem("online-order", "Online Order")}
                 </ListItem>
                 <ListItem>
-                  {simpleNavButtonGridItem("/about-us", "About Us")}
+                  {simpleNavButtonGridItem("about-us", "About Us")}
                 </ListItem>
                 <ListItem>
-                  {simpleNavButtonGridItem("/contact-us", "Contact Us")}
+                  {simpleNavButtonGridItem("contact-us", "Contact Us")}
                 </ListItem>
               </List>
             </Drawer>

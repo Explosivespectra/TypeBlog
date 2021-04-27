@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RESTAURANTS_FOR_REGION_QUERY } from "../../../queries.js";
+import { checkLocation } from "../../../HelperFunctions";
 
 import {
   Typography,
@@ -27,9 +28,14 @@ export interface MenuDrawerSubListProps {
 }
 
 const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({ region }) => {
+  const location = useLocation();
+
+  const pathVals = location.pathname.split(`/`);
+
   const { loading, error, data } = useQuery(RESTAURANTS_FOR_REGION_QUERY, {
     variables: { region: region },
   });
+
   const classes = useStyles();
 
   if (error) return <Typography variant="subtitle1">Error</Typography>;
@@ -44,6 +50,9 @@ const MenuDrawerSubList: React.FC<MenuDrawerSubListProps> = ({ region }) => {
             key={restaurant.name}
             component={Link}
             to={`/menu/${region}/${restaurant.id}`}
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              checkLocation(event, pathVals, `${restaurant.id}`, 3);
+            }}
           >
             <ListItemIcon classes={{ root: classes.navcontent }}>
               <FiberManualRecordIcon />

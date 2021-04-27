@@ -1,7 +1,9 @@
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { Link, useLocation } from "react-router-dom";
 import { REGIONS_QUERY } from "../../../queries.js";
 import { MenuDrawerSubList } from "./MenuDrawerSubList";
+import { checkLocation } from "../../../HelperFunctions";
 
 import {
   Typography,
@@ -14,6 +16,7 @@ import {
 } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { PointerEvent } from "react";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     navcontent: {
@@ -51,6 +54,9 @@ const MenuDrawerList: React.FC = ({}) => {
               key={name}
               component={Link}
               to={`/menu${name === "All Foods" ? "" : `/${name}`}`}
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                checkLocation(event, pathVals, name, 2);
+              }}
             >
               <ListItemIcon classes={{ root: classes.navcontent }}>
                 <FiberManualRecordIcon />
